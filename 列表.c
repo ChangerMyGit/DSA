@@ -11,14 +11,22 @@ int main(){
 	node = list->header->succ;
 	for(i = 1;i <= 15;i++)
 		inserLast(i,list);
-	for(i = list->size;i>0;i--){
-		printf("%d ",node->data);
-		node = node->succ;
-	}
-	printf("\n");
+	printList(list);
 	printf("%d\n",list->size);
 	node = findList(6,list);
-	if(node != NULL)
-	   printf("%d\n",node->data);
+	//clearList(list);
+
+/*
+   if(node != NULL){
+		printf("%d\n",node->data);
+		node = findAfterListNode(10,node,16);
+		node = findBeforeListNode(10,20,node);
+		if(node != NULL)
+		   printf("%d\n",node->data);
+		//deleteListNode(node);
+	}
+*/
+	deduplicate(list);
+	printList(list);
 	return 0;
 }

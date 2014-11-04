@@ -1,3 +1,5 @@
+// 通用类型
+typedef  void * ElemType;
 //列表节点模板类（以双向链表形式实现）
 typedef struct _listNode{
 	int data;
@@ -38,3 +40,5 @@ void printList(List * list);
 void clearList(List * list);
 // 去重
 void deduplicate(List * list);
+// 有序去重
+void uniquifyBySort(List * list);

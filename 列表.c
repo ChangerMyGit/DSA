@@ -3,19 +3,24 @@
 #include <stdlib.h>
 
 int main(){
+	int a[] = {1,1,2,2,3,3,4,4,5,5,6,6};
 	int i;
 	ListNode * node;
 	List * list = initList();
-	for(i = 1;i <= 15;i++)
+/**
+    for(i = 1;i <= 15;i++)
 		insertBefore(i,list);
 	node = list->header->succ;
 	for(i = 1;i <= 15;i++)
+		//insertBefore(i,list);
 		inserLast(i,list);
+**/	
+	for(i = 0;i < ((sizeof(a)/sizeof(int)));i++)
+		inserLast(a[i],list);
 	printList(list);
-	printf("%d\n",list->size);
+	//printf("%d\n",list->size);
 	node = findList(6,list);
 	//clearList(list);
-
 /*
    if(node != NULL){
 		printf("%d\n",node->data);
@@ -26,7 +31,11 @@ int main(){
 		//deleteListNode(node);
 	}
 */
-	deduplicate(list);
+	//deduplicate(list);
+	uniquifyBySort(list);
 	printList(list);
+	//clearList(list);
+	//printList(list);
+	//printf("%d %d \n",&a[0],&a[1]);
 	return 0;
 }

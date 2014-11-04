@@ -140,3 +140,19 @@ void deduplicate(List * list){
 		node = node->succ;
 	}
 }
+
+// ÓÐÐòÈ¥ÖØ
+void uniquifyBySort(List * list){
+	int length  = list->size;
+	ListNode * node , * next_node; 
+	if(list->size == 0) return;
+	node = getFirst(list);
+	while(length-- > 0){
+		next_node = node->succ;
+		if(node->data == next_node->data){
+			deleteListNode(next_node);
+			continue;
+		}
+		node = node->succ;
+	}
+}

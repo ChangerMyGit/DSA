@@ -1,7 +1,7 @@
 #include "Vector.h"
 #include <stdio.h>
 
-int main(){
+int mainVector(){
 	int a[] = {6,202,100,301,38,8,1};
 	int i;
 	Vector vec;

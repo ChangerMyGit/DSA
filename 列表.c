@@ -5,8 +5,7 @@
 int main(){
 	int i;
 	ListNode * node;
-	List * list = (List *)malloc(sizeof(List));
-	initList(list);
+	List * list = initList();
 	for(i = 1;i <= 15;i++)
 		insertBefore(i,list);
 	node = list->header->succ;
@@ -18,5 +17,8 @@ int main(){
 	}
 	printf("\n");
 	printf("%d\n",list->size);
+	node = findList(6,list);
+	if(node != NULL)
+	   printf("%d\n",node->data);
 	return 0;
 }

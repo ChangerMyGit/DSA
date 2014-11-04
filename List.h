@@ -12,10 +12,16 @@ typedef struct _list {
 	ListNode * trailer; 
 } List;
 // 初始化列表
-void initList(List * list);
+List * initList();
 // 创建新的列表节点
 void newListNode(ListNode * newNode , int data , ListNode * pre , ListNode * succ);
 // 在列表的头哨兵节点前插入新的节点
 void insertBefore(int data , List * list);
 // 在列表的尾哨兵节点前插入新的节点
 void inserLast(int data , List * list);
+// 获取第一个节点
+ListNode * getFirst(List * list);
+// 获取最后一个节点
+ListNode * getLast(List * list);
+// 查找
+ListNode * findList(int data,List * list);

@@ -22,16 +22,17 @@ List * initList(){
 	list->header = header;
 	list->trailer = trailer;
 	list->size = 0;
+	return list;
 }
 
-void newListNode(ListNode * newNode , int data , ListNode * pre , ListNode * succ, List * list){
+void newListNode(ListNode * newNode , ElemType data , ListNode * pre , ListNode * succ, List * list){
 	newNode->data = data;
 	newNode->pre = pre;
 	newNode->succ = succ;
 	newNode->list = list;
 }
 
-void insertBefore(int data , List * list){
+void insertBefore(ElemType data , List * list){
 	ListNode * newNode = (ListNode *)malloc(sizeof(ListNode));
 	if(newNode != NULL){
 		// 新节点的前驱是列表的前哨兵节点，后继是前哨兵节点的后继
@@ -42,7 +43,7 @@ void insertBefore(int data , List * list){
 	}
 }
 
-void inserLast(int data , List * list){
+void inserLast(ElemType data , List * list){
 	ListNode * newNode = (ListNode *)malloc(sizeof(ListNode));
 	if(newNode != NULL){
 		// 新节点的后继是后哨兵节点，前驱是后哨兵节点的前驱
@@ -65,7 +66,7 @@ ListNode * getLast(List * list){
 	return NULL;
 }
 
-ListNode * findList(int data,List * list){
+ListNode * findList(ElemType data,List * list){
 	int i;
 	ListNode * node = getFirst(list);
 	for(i = 0;i < list->size ; i++){
@@ -76,7 +77,7 @@ ListNode * findList(int data,List * list){
 	return NULL;
 }
 
-ListNode * findAfterListNode(int data , ListNode * node , int n){
+ListNode * findAfterListNode(ElemType data , ListNode * node , int n){
 	while(n-- > 0){
 		if(node->succ->data == data)
 			return node->succ;
@@ -85,7 +86,7 @@ ListNode * findAfterListNode(int data , ListNode * node , int n){
 	return NULL;
 }
 
-ListNode * findBeforeListNode(int data ,int n , ListNode * node){
+ListNode * findBeforeListNode(ElemType data ,int n , ListNode * node){
     while(n-- > 0){
 		if(node->pre->data == data)
 			return node->pre;
@@ -202,7 +203,7 @@ void selectionSort(List * list){
 }
 
 // 插入在node节点之前
-void insertBeforeNode(int data , ListNode * node){
+void insertBeforeNode(ElemType data , ListNode * node){
     ListNode * newNode = (ListNode *)malloc(sizeof(ListNode));
 	newListNode(newNode , data , node->pre,node,node->list);
 	node->pre->succ = newNode;
@@ -211,7 +212,7 @@ void insertBeforeNode(int data , ListNode * node){
 }
 
 // 插入在node节点之后
-void insertAfterNode(int data , ListNode * node){
+void insertAfterNode(ElemType data , ListNode * node){
 	ListNode * newNode = (ListNode *)malloc(sizeof(ListNode));
 	newListNode(newNode , data , node,node->succ,node->list);
 	node->succ->pre = newNode;
@@ -241,7 +242,7 @@ void insertionSort(List * list){
 }
 
 // 找到node之前n长度的 不大于data的最后一个元素,不存在返回NULL
-ListNode * searchForInsertNode(int data , int n , ListNode * node){
+ListNode * searchForInsertNode(ElemType data , int n , ListNode * node){
 	while(n-- > 0){
 		if(node->pre->data <= data)
 			return node->pre;

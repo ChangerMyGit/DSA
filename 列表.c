@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
+int mainList(){
 	int a[] = {1,1,6,6,3,3,11,11,5,5,10,10,4,4,2,2,9,9};
 	int i;
 	// 通用类型

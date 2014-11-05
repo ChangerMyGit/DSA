@@ -2,7 +2,7 @@
 typedef  void * ElemType;
 //列表节点模板类（以双向链表形式实现）
 typedef struct _listNode{
-	int data;
+	ElemType data;// 通用数据类型
 	struct _listNode * pre; // 前驱 
 	struct _listNode * succ; // 后继
 	struct _list * list;
@@ -14,24 +14,25 @@ typedef struct _list {
 	ListNode * header; 
 	ListNode * trailer; 
 } List;
+
 // 初始化列表
 List * initList();
 // 创建新的列表节点
-void newListNode(ListNode * newNode , int data , ListNode * pre , ListNode * succ , List * list);
+void newListNode(ListNode * newNode , ElemType data , ListNode * pre , ListNode * succ , List * list);
 // 在列表的头哨兵节点前插入新的节点
-void insertBefore(int data , List * list);
+void insertBefore(ElemType data , List * list);
 // 在列表的尾哨兵节点前插入新的节点
-void inserLast(int data , List * list);
+void inserLast(ElemType data , List * list);
 // 获取第一个节点
 ListNode * getFirst(List * list);
 // 获取最后一个节点
 ListNode * getLast(List * list);
 // 查找整个列表中查找
-ListNode * findList(int data , List * list);
+ListNode * findList(ElemType data , List * list);
 // 从node节点往后 查找n个长度
-ListNode * findAfterListNode(int data , ListNode * node , int n);
+ListNode * findAfterListNode(ElemType data , ListNode * node , int n);
 // 从node节点往前 查找n个长度
-ListNode * findBeforeListNode(int data ,int n , ListNode * node);
+ListNode * findBeforeListNode(ElemType data ,int n , ListNode * node);
 // 删除节点
 void deleteListNode(ListNode * node);
 // 打印节点
@@ -53,8 +54,8 @@ void selectionSort(List * list);
 // 默认取第一个元素 作为有序段 依次遍历后面的元素 插入前面的有序段中
 void insertionSort(List * list);
 // 在节点前插入
-void insertBeforeNode(int data , ListNode * node);
+void insertBeforeNode(ElemType data , ListNode * node);
 // 在节点后插入
-void insertAfterNode(int data , ListNode * node);
+void insertAfterNode(ElemType data , ListNode * node);
 // 选择之前序列中不大于data的最后一个节点 长度为n
-ListNode * searchForInsertNode(int data , int n , ListNode * node);
+ListNode * searchForInsertNode(ElemType data , int n , ListNode * node);

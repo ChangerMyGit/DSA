@@ -156,3 +156,46 @@ void uniquifyBySort(List * list){
 		node = node->succ;
 	}
 }
+
+// 只交换数据域
+void list_swap(ListNode * p1 , ListNode * p2){
+	int temp = p1->data;
+	p1->data = p2->data;
+	p2->data = temp;
+}
+
+// 从头结点开始 n 长度的区间选择最大元素
+ListNode * selectMax(List * list , int n){
+	ListNode * max , * p; // 
+	max = getFirst(list);
+	p = max;
+	if(n > list->size)
+		printf("Size is less Than %d " , n);
+	while(n-- > 0){
+		if(p->data >= max->data)
+			max = p;
+		p = p->succ;
+	}
+	return max;
+}
+
+// 每次从无序的序列选择一个最大的元素 放入有序序列 
+void selectionSort(List * list){
+	int n = list->size - 1;
+	ListNode * p , * q ;
+	q = getLast(list);// 初始化 最后一个元素作为有序序列
+	/*
+	for(;n > 0;n--,q = q->pre){
+		p = selectMax(list,n);
+		if(p->data >= q->data)
+			list_swap(p,q);	
+	}
+	*/
+	while(n > 0){
+		p = selectMax(list,n);
+		if(p->data >= q->data)
+			list_swap(p,q);
+		q = q->pre;
+		n--;
+	}
+}

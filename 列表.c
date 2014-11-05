@@ -3,8 +3,10 @@
 #include <stdlib.h>
 
 int main(){
-	int a[] = {1,1,2,2,3,3,4,4,5,5,6,6};
+	int a[] = {1,1,6,6,3,3,11,11,5,5,10,10,4,4,2,2,9,9};
 	int i;
+	// 通用类型
+	//ElemType x = 'x';
 	ListNode * node;
 	List * list = initList();
 /**
@@ -33,9 +35,12 @@ int main(){
 */
 	//deduplicate(list);
 	uniquifyBySort(list);
+	selectionSort(list);
 	printList(list);
+	//printf("\n%d \n",selectMax(list,list->size)->data);
 	//clearList(list);
 	//printList(list);
 	//printf("%d %d \n",&a[0],&a[1]);
+	//printf("%c\n",x);
 	return 0;
 }

@@ -42,3 +42,9 @@ void clearList(List * list);
 void deduplicate(List * list);
 // 有序去重
 void uniquifyBySort(List * list);
+// 从头结点开始 n 长度的区间选择最大元素
+ListNode * selectMax(List * list , int n);
+// 交换
+void list_swap(ListNode * p1 , ListNode * p2);
+// 选择排序
+void selectionSort(List * list);

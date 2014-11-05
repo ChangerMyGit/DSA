@@ -48,3 +48,13 @@ ListNode * selectMax(List * list , int n);
 void list_swap(ListNode * p1 , ListNode * p2);
 // 选择排序
 void selectionSort(List * list);
+
+// 插入排序 默认序列分两段 前一段为有序段，后一段为无序段，每一次从无序段中插入到有序段中合适的位置，直到结束
+// 默认取第一个元素 作为有序段 依次遍历后面的元素 插入前面的有序段中
+void insertionSort(List * list);
+// 在节点前插入
+void insertBeforeNode(int data , ListNode * node);
+// 在节点后插入
+void insertAfterNode(int data , ListNode * node);
+// 选择之前序列中不大于data的最后一个节点 长度为n
+ListNode * searchForInsertNode(int data , int n , ListNode * node);

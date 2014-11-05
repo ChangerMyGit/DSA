@@ -180,6 +180,7 @@ ListNode * selectMax(List * list , int n){
 }
 
 // 每次从无序的序列选择一个最大的元素 放入有序序列 
+// 时间复杂度同样是O(n2) 但是减少了交换的时间
 void selectionSort(List * list){
 	int n = list->size - 1;
 	ListNode * p , * q ;
@@ -198,4 +199,53 @@ void selectionSort(List * list){
 		q = q->pre;
 		n--;
 	}
+}
+
+// 插入在node节点之前
+void insertBeforeNode(int data , ListNode * node){
+    ListNode * newNode = (ListNode *)malloc(sizeof(ListNode));
+	newListNode(newNode , data , node->pre,node,node->list);
+	node->pre->succ = newNode;
+	node->pre = newNode;
+	node->list->size++;
+}
+
+// 插入在node节点之后
+void insertAfterNode(int data , ListNode * node){
+	ListNode * newNode = (ListNode *)malloc(sizeof(ListNode));
+	newListNode(newNode , data , node,node->succ,node->list);
+	node->succ->pre = newNode;
+	node->succ = newNode;
+	node->list->size++;
+}
+
+void insertionSort(List * list){
+	int i = 1 , n = list->size;
+	ListNode * node , * temp;
+	// 默认取第二个元素
+	ListNode * q = getFirst(list)->succ;
+	// 从第二个开始 小于长度N
+	for(i = 1;i < n;i++){
+		temp = q;
+		// 找到不大于data的最后一个节点
+		node = searchForInsertNode(q->data,i,q);
+		// 如果存在插入在该节点之后
+		if(node != NULL)
+			insertAfterNode(q->data,node);
+		else if(node == NULL)
+			insertBeforeNode(q->data,node);
+		q = q->succ;
+		// 删掉之前插入的元素
+		deleteListNode(temp);
+	}
+}
+
+// 找到node之前n长度的 不大于data的最后一个元素,不存在返回NULL
+ListNode * searchForInsertNode(int data , int n , ListNode * node){
+	while(n-- > 0){
+		if(node->pre->data <= data)
+			return node->pre;
+		node = node->pre;
+	}
+	return NULL;
 }

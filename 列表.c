@@ -21,7 +21,7 @@ int main(){
 		inserLast(a[i],list);
 	printList(list);
 	//printf("%d\n",list->size);
-	node = findList(6,list);
+	node = getFirst(list);
 	//clearList(list);
 /*
    if(node != NULL){
@@ -32,10 +32,17 @@ int main(){
 		   printf("%d\n",node->data);
 		//deleteListNode(node);
 	}
-*/
-	//deduplicate(list);
-	uniquifyBySort(list);
-	selectionSort(list);
+*/ 
+	// 无序去重
+	// deduplicate(list);
+	// 选择排序
+	// selectionSort(list);
+	// 有序去重
+    uniquifyBySort(list);
+	// 插入排序
+	insertionSort(list);
+	// insertBeforeNode(16,node);
+	// insertAfterNode(19,getLast(list));
 	printList(list);
 	//printf("\n%d \n",selectMax(list,list->size)->data);
 	//clearList(list);

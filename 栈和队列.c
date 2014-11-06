@@ -4,8 +4,19 @@
 
 // ½øÖÆ×ª»» Ê¹ÓÃÕ»À´Êä³ö
 void convert(Stack * stack , unsigned n , int base);
+// À¨ºÅÆ¥Åä
+int paren(Stack * stack,char * str);
+// »ñÈ¡×óÀ¨ºÅµÄĞòÁĞ
+int getBracketsIndex(char c , char * s);
+// ÊÇ·ñÊÇ×óÀ¨ºÅ
+int isLeftBrackers(char c , char * sl);
+// ÊÇ·ñÊÇÓÒÀ¨ºÅ
+int isRightBrackers(char c , char * sr);
+// ×óÓÒÀ¨ºÅÆ¥Åä
+int brackersMatch(char lc , char rc ,char * sl , char * sr);
 int main(){
 	int i;
+	char * c = "void * (*str[])(int x,int y){}";
 	Stack * stack = initStack();
 /**
     for(i = 0 ; i< 10 ;i++)
@@ -14,7 +25,11 @@ int main(){
 		printf("%d ",pop(stack));
 	printf("\n");
 **/	
-	convert(stack,10,16);
+	//convert(stack,10,16);
+	if(paren(stack,c))
+		printf("Æ¥Åä³É¹¦!\n");
+	else
+		printf("Æ¥ÅäÊ§°Ü!\n");
 	return 0;
 }
 
@@ -28,4 +43,57 @@ void convert(Stack * stack , unsigned n , int base){
 	while(stack->size > 0)
 		printf("%c",pop(stack));
 	printf("\n");
+}
+
+int paren(Stack * stack,char * str){
+	char c , t;
+	static char leftStr[] = {'(','[','{'};
+	static char rightStr[] = {')',']','}'};
+	while((c = *str++)){
+		if(isLeftBrackers(c,leftStr)) 
+			push(c,stack);// ×óÀ¨ºÅÈëÕ»
+		else if(isRightBrackers(c,rightStr)){ // ÓÒÀ¨ºÅ Õ»Îª¿Õ²»Æ¥Åä ·ñÔò³öÕ»
+			if(stack->size == 0)
+				return FALSE;
+			else if(!brackersMatch(pop(stack),c,leftStr,rightStr)) // À¨ºÅ²»Æ¥Åä
+				return FALSE;
+	 	}
+	}
+	// Õ»Îª¿Õ ÍêÈ«Æ¥Åä ·ñÔòÆ¥ÅäÊ§°Ü
+	return (stack->size == 0)?TRUE:FALSE;
+}
+
+// »ñÈ¡À¨ºÅĞòÁĞ
+int getBracketsIndex(char c , char * s){
+	int i;
+	for(i = 0;*s;s++,i++){
+		if(c == *s)
+			return i;
+	}
+	return -1;
+}
+
+int brackersMatch(char lc , char rc ,char * sl , char * sr){
+    int i , j;
+	i = getBracketsIndex(lc,sl);
+	j = getBracketsIndex(rc,sr);
+	return (i == j)?TRUE:FALSE;
+}
+
+// ÊÇ·ñÊÇ×óÀ¨ºÅ
+int isLeftBrackers(char c , char * sl){
+	for(;*sl;sl++){
+		if(c == *sl)
+			return TRUE;
+	}
+	return FALSE;   
+}
+
+// ÊÇ·ñÊÇÓÒÀ¨ºÅ
+int isRightBrackers(char c , char * sr){
+	for(;*sr;sr++){
+		if(c == *sr)
+			return TRUE;
+	}
+	return FALSE;   
 }

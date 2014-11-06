@@ -1,3 +1,6 @@
+#ifndef _VECTOR_H
+#define _VECTOR_H
+
 #define MAX_SIZE 100
 #define TRUE 1
 #define FALSE 0
@@ -53,3 +56,5 @@ int bubble2(Vector * vec,int lo,int hi);
 void merge(Vector * vec,int lo , int hi);
 void mergeSort(Vector * vec,int lo ,int mi, int hi);
 void printVector(Vector * vec);
+
+#endif

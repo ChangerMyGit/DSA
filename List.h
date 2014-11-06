@@ -1,3 +1,6 @@
+// 避免头文件重复引用
+#ifndef _LIST_H
+#define _LIST_H
 // 通用类型
 typedef  void * ElemType;
 //列表节点模板类（以双向链表形式实现）
@@ -59,3 +62,4 @@ void insertBeforeNode(ElemType data , ListNode * node);
 void insertAfterNode(ElemType data , ListNode * node);
 // 选择之前序列中不大于data的最后一个节点 长度为n
 ListNode * searchForInsertNode(ElemType data , int n , ListNode * node);
+#endif

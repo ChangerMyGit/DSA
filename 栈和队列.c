@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Stack.h"
+#include "Queue.h"
 
 // 进制转换 使用栈来输出
 void convert(Stack * stack , unsigned n , int base);
@@ -18,18 +19,26 @@ int main(){
 	int i;
 	char * c = "void * (*str[])(int x,int y){}";
 	Stack * stack = initStack();
+	Queue * queue = initQueue();
 /**
     for(i = 0 ; i< 10 ;i++)
 		push(i,stack);
 	while(stack->size > 0)
 		printf("%d ",pop(stack));
 	printf("\n");
-**/	
+
 	//convert(stack,10,16);
 	if(paren(stack,c))
 		printf("匹配成功!\n");
 	else
 		printf("匹配失败!\n");
+**/	
+
+	for(i = 1;i<=10;i++)
+		enqueue(i,queue);
+	for(i = 1;i<=10;i++)
+		printf("%d ",dequeue(queue));
+	printf("\n");
 	return 0;
 }
 

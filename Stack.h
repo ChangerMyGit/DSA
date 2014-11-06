@@ -3,6 +3,9 @@
    使用列表来实现栈
    典型应用场合：1 逆序输出 2 递归嵌套 3 延迟缓冲 4 栈式计算
 **/
+#ifndef _STACK_H
+#define _STACK_H
+
 #include "List.h"
 #define FALSE 0
 #define TRUE  1
@@ -22,3 +25,5 @@ ElemType top(Stack * stack);
 // 是否为空
 int empty(Stack * stack);
 void clearStack(Stack * stack);
+
+#endif

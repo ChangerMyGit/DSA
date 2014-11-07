@@ -15,7 +15,7 @@ int isLeftBrackers(char c , char * sl);
 int isRightBrackers(char c , char * sr);
 // ×óÓÒÀ¨ºÅÆ¥Åä
 int brackersMatch(char lc , char rc ,char * sl , char * sr);
-int main(){
+int mainStack(){
 	int i;
 	char * c = "void * (*str[])(int x,int y){}";
 	Stack * stack = initStack();

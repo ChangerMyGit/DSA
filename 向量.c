@@ -1,6 +1,8 @@
 #include "Vector.h"
 #include <stdio.h>
 
+// ¶þ·Ö²éÕÒ µÝ¹é
+int BinSearch(int a[],int lo , int hi,int key);
 int mainVector(){
 	int a[] = {6,202,100,301,38,8,1};
 	int i;
@@ -30,5 +32,17 @@ int mainVector(){
 	merge(&vec,0,vec.size-1);
 	printVector(&vec);
 	printf("\n");
+	printf("%d\n",BinSearch(vec.elem,0,vec.size,100));
 	return 0;
+}
+
+int BinSearch(int a[],int lo , int hi,int key){
+	int mi;
+	if(lo < hi){
+		mi = (lo + hi) >> 1;
+		if(a[mi] == key) return mi;
+		else if(a[mi] > key) return BinSearch(a,lo,mi,key);
+		else if(a[mi] < key) return BinSearch(a,mi+1,hi,key);
+	}
+	return -1;
 }

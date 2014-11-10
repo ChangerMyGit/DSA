@@ -4,6 +4,7 @@
 #ifndef _TREE_H
 #define _TREE_H
 #include "List.h"
+#include "Stack.h"
 typedef struct _binNode{
 	ElemType data;
 	struct _binNode * parent;
@@ -41,4 +42,14 @@ int getTreeHeight(BinTree * binTree);
 void travPre(BinNode * binNode);
 // 迭代实现先序遍历 使用栈
 void travPre_I1(BinNode * binNode);
+// 先序遍历使用栈 第二种实现方式
+void travPre_I2(BinNode * binNode);
+//从当前节点出发，沿左分支不断深入，直至没有左分支的节点；沿途节点遇到后立即访问
+void visitAlongLeftBranch(BinNode * binNode , Stack * stack);
+// 迭代实现中序遍历
+void travIn_R(BinNode * binNode);
+//从当前节点出发，沿左分支不断深入，直至没有左分支的节点
+void goAlongLeftBranch(BinNode * binNode , Stack * stack);
+//二叉树中序遍历算法（迭代版#1）
+void travIn_I1(BinNode * binNode);
 #endif

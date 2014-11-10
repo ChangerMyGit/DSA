@@ -31,4 +31,10 @@ BinNode * insertAsRC(ElemType e , BinNode * binNode);
 BinNode * root(BinTree * binTree);
 // 获得某一个数的规模 所有的元素数目
 int getBinNodeSize(BinNode * binNode);
+// 更新数的高度
+void updateHeight(BinNode * binNode);
+//从bnNode出发，覆盖历代祖先
+void updateHeightAbove(BinNode * binNode);
+// 获取数的高度
+int getTreeHeight(BinTree * binTree);
 #endif

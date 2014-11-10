@@ -8,7 +8,16 @@ int main(){
 		insertAsRoot(tree,10);
 		insertAsLC(6,root(tree));
 		insertAsRC(16,root(tree));
-		printf("%d\n",root(tree)->data);
+		insertAsRC(26,root(tree)->rc);
+		insertAsRC(36,root(tree)->rc->rc);
+		insertAsLC(3,root(tree)->lc);
+		insertAsLC(2,root(tree)->lc->lc);
+		insertAsLC(1,root(tree)->lc->lc->lc);
+
+	}
+	if(tree->size!=0){
+	    printf("高度： %d\n",getTreeHeight(tree));
+		printf("节点数目：%d\n",getBinNodeSize(root(tree)));
 	}
 	return 0;
 }

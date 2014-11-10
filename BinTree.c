@@ -1,4 +1,5 @@
 #include "BinTree.h"
+#include "Stack.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -73,4 +74,26 @@ int getTreeHeight(BinTree * binTree){
 	}
 	// 空树返回-1；
 	return -1;
+}
+
+// 递归实现
+void travPre(BinNode * binNode){
+	if(binNode){
+		printf(" %d ",binNode->data);
+		travPre(binNode->lc);
+		travPre(binNode->rc);
+	}
+}
+
+void travPre_I1(BinNode * binNode){
+	Stack * stack = initStack();
+	push(binNode,stack);
+	while(!empty(stack)){
+		binNode = pop(stack);
+		printf(" %d ",binNode->data);
+	    // 先入右子树 再入左子树 栈是先进后出
+		if(binNode->rc)  push(binNode->rc,stack);
+		if(binNode->lc)  push(binNode->lc,stack);
+	}
+	free(stack);
 }

@@ -31,7 +31,7 @@ ElemType top(Stack * stack){
 }
 
 int empty(Stack * stack){
-	return stack->size;
+	return (stack->size == 0) ? TRUE : FALSE;
 }
 
 void clearStack(Stack * stack){

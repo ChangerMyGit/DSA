@@ -18,6 +18,8 @@ int main(){
 	if(tree->size!=0){
 	    printf("高度： %d\n",getTreeHeight(tree));
 		printf("节点数目：%d\n",getBinNodeSize(root(tree)));
+		travPre(root(tree));
+		//travPre_I1(root(tree));
 	}
 	return 0;
 }

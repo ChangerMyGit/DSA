@@ -37,4 +37,8 @@ void updateHeight(BinNode * binNode);
 void updateHeightAbove(BinNode * binNode);
 // 获取数的高度
 int getTreeHeight(BinTree * binTree);
+// 先序遍历 递归实现
+void travPre(BinNode * binNode);
+// 迭代实现先序遍历 使用栈
+void travPre_I1(BinNode * binNode);
 #endif

@@ -116,6 +116,7 @@ void travPre_I2(BinNode * binNode){
 			break;
 		binNode = pop(stack);
 	}
+	free(stack);
 }
 
 void travIn_R(BinNode * binNode){
@@ -143,6 +144,7 @@ void travIn_I1(BinNode * binNode){
 		printf(" %c ",binNode->data);
 		binNode = binNode->rc;
 	}
+	free(stack);
 }
 
 void traveLevel(BinNode * binNode){
@@ -155,6 +157,7 @@ void traveLevel(BinNode * binNode){
 	   if(binNode->lc) enqueue(binNode->lc,queue);
 	   if(binNode->rc) enqueue(binNode->rc,queue);
 	}
+	free(queue);
 }
 
 // µ›πÈ«ÛΩ‚

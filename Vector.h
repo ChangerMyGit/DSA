@@ -4,20 +4,22 @@
 #define MAX_SIZE 100
 #define TRUE 1
 #define FALSE 0
+typedef  void * Elem;
+
 typedef struct _vec{
 	int size;
-	int * elem;
+	Elem * elem;
 	int capacity;
 } Vector;
 
 // 初始化
-void initVector(Vector * vec , int capacity);
+Vector * initVector(int capacity);
 // 扩容
 void expand(Vector * vec);
 // 插入
-void insert(Vector * vec , int e);
+void insert(Vector * vec , Elem e);
 // 插入 
-void insert2(Vector * vec , int e,unsigned int i);
+void insert2(Vector * vec , Elem e,unsigned int i);
 // 删除 范围删除
 void deleteRange(Vector * vec,unsigned int lo,unsigned int high);
 // 单个删除
@@ -33,17 +35,17 @@ int uniquify(Vector * vec);
 // 排序
 void sort(Vector * vec);
 // 二分查找 lo = 0 hi = length
-int binSearch(Vector * vec,int lo,int hi,int x);
+int binSearch(Vector * vec,int lo,int hi,Elem x);
 // 二分查找 lo = 0 hi = length-1
-int binSearch2(Vector * vec,int lo,int hi,int x);
+int binSearch2(Vector * vec,int lo,int hi,Elem x);
 // 二分查找 解决左右分支不平衡的问题
-int binSearch3(Vector * vec,int x);
+int binSearch3(Vector * vec,Elem x);
 // 斐波那契查找
-int fibonacciSearch(Vector * vec,int x);
+int fibonacciSearch(Vector * vec,Elem x);
 //构建斐波那契序列  
 void fibonacci(int *f);   
 // 替换
-void vec_swap(int * x , int * y);
+void vec_swap(Elem * x , Elem * y);
 // 冒泡排序改进版
 void bubbleSort(Vector * vec);
 int bubble(Vector * vec,int lo,int hi);

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main(){
+int mainTree(){
 	BinTree * tree = initBinTree();
 	if(tree->size == 0){
 		insertAsRoot(tree,'A');

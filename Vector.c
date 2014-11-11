@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include "Vector.h"
 
-void initVector(Vector * vec , int capacity){
+Vector * initVector(int capacity){
+	Vector * vec = (Vector *)malloc(sizeof(Vector));
 	vec->size = 0;
 	vec->capacity = capacity;
-	vec->elem = (int *)malloc(capacity);
+	vec->elem = (Elem *)malloc(capacity);
+	return vec;
 }
 
 void expand(Vector * vec){
@@ -13,14 +15,14 @@ void expand(Vector * vec){
 	vec->capacity <<=1; 
 }
 
-void insert(Vector * vec , int e){
+void insert(Vector * vec , Elem e){
 	if(vec->size == vec->capacity / sizeof(int)){
 		expand(vec);
 	}  
 	vec->elem[(vec->size)++] = e;
 }
 
-void insert2(Vector * vec , int e,int i){
+void insert2(Vector * vec , Elem e,int i){
 	int len = vec->size;
 	// 整体后移
 	if(i>=0 && i< vec->size){
@@ -89,8 +91,8 @@ int uniquify(Vector * vec){
 	return j - i +1;
 }
 
-void vec_swap(int * x , int * y){
-	int temp;
+void vec_swap(Elem * x , Elem * y){
+	Elem temp;
 	temp = *x;
 	*x = *y;
 	*y = temp;
@@ -106,7 +108,7 @@ void sort(Vector * vec){
 }
 
 // lo = 0 hi = length
-int binSearch(Vector * vec,int lo,int hi,int x){
+int binSearch(Vector * vec,int lo,int hi,Elem x){
 	int mi;
 	while(lo < hi){
 		mi = (lo + hi) >> 1;
@@ -118,7 +120,7 @@ int binSearch(Vector * vec,int lo,int hi,int x){
 }
 
 // lo = 0 hi = length-1
-int binSearch2(Vector * vec,int lo,int hi,int x){
+int binSearch2(Vector * vec,int lo,int hi,Elem x){
 	int mi;
 	while(lo <= hi){
 		mi = (lo + hi) >> 1;
@@ -131,7 +133,7 @@ int binSearch2(Vector * vec,int lo,int hi,int x){
 
 // 二分查找 解决左右分支不平衡的问题
 // 每次只有两个分支 x < a[mi] [lo,mi) a[mi] <= x [mi+1 , hi)
-int binSearch3(Vector * vec,int x){
+int binSearch3(Vector * vec,Elem x){
 	int lo = 0 , mi , hi = vec->size;
 	if(x > vec->elem[hi-1] || x <  vec->elem[lo]) 
 	    return (x > vec->elem[hi-1]) ? hi : lo-1;
@@ -151,7 +153,7 @@ void fibonacci(int *f){
 	}
 }
 
-int fibonacciSearch(Vector * vec,int x){
+int fibonacciSearch(Vector * vec,Elem x){
 	int lo = 0 ,hi = vec->size ,mi , k = 0;
 	int f[MAX_SIZE];
     fibonacci(f);
@@ -222,10 +224,10 @@ void merge(Vector * vec,int lo , int hi){
 // 声明一块左区间 B [lo,mi] 供交换使用 右区间C[mi+1,hi]
 void mergeSort(Vector * vec,int lo ,int mi, int hi){
 	int i,j,k,lb,lc,bi;
-	int * b , * c;
+	Elem * b , * c;
 	lb = (mi - lo) + 1;
 	lc = (hi - (mi + 1)) + 1;
-	b = (int *)malloc(lb * sizeof(int));
+	b = (Elem *)malloc(lb * sizeof(int));
 	for(bi = 0,i = lo;bi < lb;bi++,i++)
 		b[bi] = vec->elem[i];
 	c = &vec->elem[mi + 1];

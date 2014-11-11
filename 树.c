@@ -16,6 +16,7 @@ int main(){
 	}
 	if(tree->size!=0){
 	    printf("高度： %d\n",getTreeHeight(tree));
+		printf("高度： %d\n",get_tree_height(root(tree)));
 		printf("节点数目：%d\n",getBinNodeSize(root(tree)));
 		printf("前序遍历---------------\n");
 		travPre(root(tree));

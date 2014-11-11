@@ -164,3 +164,10 @@ int getLeafNum(BinNode * binNode){
 	   return 1;
    return getLeafNum(binNode->lc) + getLeafNum(binNode->rc);
 }
+
+int get_tree_height(BinNode * binNode){
+   if(!binNode) return -1; // 空结点
+   if(binNode->lc == NULL && binNode->rc == NULL)
+	   return 0; // 叶子节点
+   return MAX(get_tree_height(binNode->lc),get_tree_height(binNode->rc)) + 1;
+}

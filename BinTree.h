@@ -57,4 +57,6 @@ void travIn_I1(BinNode * binNode);
 void traveLevel(BinNode * binNode);
 // 获取树中所有的叶子节点数目
 int getLeafNum(BinNode * binNode);
+// 获取树的高度 递归实现 
+int get_tree_height(BinNode * binNode);
 #endif

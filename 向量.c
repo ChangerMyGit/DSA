@@ -3,7 +3,7 @@
 
 // ¶þ·Ö²éÕÒ µÝ¹é
 int BinSearch(int a[],int lo , int hi,int key);
-int main(){
+int mainVector(){
 	int a[] = {6,202,100,301,38,8,1,201,300,16};
 	int i;
 	Vector * vec = initVector(10 * sizeof(int));

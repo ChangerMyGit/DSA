@@ -250,3 +250,7 @@ void printVector(Vector * vec){
 		printf("%d ",vec->elem[i]);
 }
 
+Elem getElem(Vector * vec ,int i){
+	Elem e = vec->elem[i];
+	return e;
+}

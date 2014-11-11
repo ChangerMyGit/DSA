@@ -61,7 +61,7 @@ void updateHeight(BinNode * binNode){
 	binNode->height = 1 + MAX(stature(binNode->lc),stature(binNode->rc));
 }
 
-void updateHeightAbove(BinNode *     binNode){
+void updateHeightAbove(BinNode * binNode){
 	while(binNode){
 		updateHeight(binNode);
 		binNode = binNode->parent;

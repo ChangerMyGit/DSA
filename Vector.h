@@ -14,6 +14,8 @@ typedef struct _vec{
 
 // 初始化
 Vector * initVector(int capacity);
+// 获取元素
+Elem getElem(Vector * vec , int i);
 // 扩容
 void expand(Vector * vec);
 // 插入

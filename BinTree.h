@@ -5,6 +5,7 @@
 #define _TREE_H
 #include "List.h"
 #include "Stack.h"
+#include "Queue.h"
 typedef struct _binNode{
 	ElemType data;
 	struct _binNode * parent;
@@ -52,4 +53,8 @@ void travIn_R(BinNode * binNode);
 void goAlongLeftBranch(BinNode * binNode , Stack * stack);
 //二叉树中序遍历算法（迭代版#1）
 void travIn_I1(BinNode * binNode);
+// 层次遍历 使用队列
+void traveLevel(BinNode * binNode);
+// 获取树中所有的叶子节点数目
+int getLeafNum(BinNode * binNode);
 #endif

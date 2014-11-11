@@ -20,6 +20,7 @@ void enqueue(ElemType x , Queue * queue)
 ElemType dequeue(Queue * queue){
 	ElemType x = getFirst(queue->elem)->data;
 	deleteListNode(getFirst(queue->elem));
+	queue->size--;
 	return x;
 }
 

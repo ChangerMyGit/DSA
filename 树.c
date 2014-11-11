@@ -1,4 +1,5 @@
 #include "BinTree.h"
+#include "Queue.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -26,6 +27,10 @@ int main(){
 		travIn_R(root(tree));
 		printf("\n");
 		travIn_I1(root(tree));
+		printf("\n层次遍历---------------\n");
+		traveLevel(root(tree));
+		printf("\n叶子节点数目 %d \n ",getLeafNum(root(tree)));
+
 	}
 	return 0;
 }

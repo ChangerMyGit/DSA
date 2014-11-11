@@ -144,3 +144,23 @@ void travIn_I1(BinNode * binNode){
 		binNode = binNode->rc;
 	}
 }
+
+void traveLevel(BinNode * binNode){
+	Queue * queue = initQueue();
+	// 入队根节点
+	enqueue(binNode,queue);
+	while(!emptyQueue(queue)){
+	   binNode = dequeue(queue);
+	   printf(" %c ",binNode->data);
+	   if(binNode->lc) enqueue(binNode->lc,queue);
+	   if(binNode->rc) enqueue(binNode->rc,queue);
+	}
+}
+
+// 递归求解
+int getLeafNum(BinNode * binNode){
+   if(binNode == NULL) return 0;
+   if(binNode->lc == NULL && binNode->rc == NULL)
+	   return 1;
+   return getLeafNum(binNode->lc) + getLeafNum(binNode->rc);
+}

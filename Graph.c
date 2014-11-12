@@ -8,10 +8,10 @@ Graph * initGraph(){
 	Graph * graph = (Graph *)malloc(sizeof(Graph));
 	graph->vertexs = initVector(10 * sizeof(Vertex));
 	graph->edges = initVector(10 * sizeof(Vector));
-/*
+	/*
 	for(i = 0 ; i < graph->edges->size ; i++)
 	graph->edges->elem[i] = initVector(10 * sizeof(Edge));
-*/	
+	*/	
 	graph->n = 0;
 	graph->e = 0;
 	return graph;
@@ -45,11 +45,78 @@ void insertVertex(Graph * graph , Elem data){
 	graph->n++;//顶点数加1
 	// 首先把之前的矩阵扩充
 	for(i = 0 ; i < graph->edges->size ; i++){
-		vertexs = graph->edges->elem[0];
-		insert(vertexs , vertex);
+		vertexs = graph->edges->elem[i];
+		insert(vertexs , NULL);
 	}
 	// 添加新的边
 	edges = initVector(graph->n * sizeof(Edge)); // 新的边
+	for(i = 0 ; i < graph->n ; i++)
+		insert(edges , NULL); // edges->elem[i] = NULL;
 	insert(graph->edges , edges);
+}
+
+void deleteVertex(Graph * graph , int i){
+	int j;
+	Vector * vertexs;
+	Vector * edges ;
+	if(graph->n == 0 || i > graph->n) return ;
+	// 删除单个顶点
+	deleteSingle(graph->vertexs,i);
+	edges = graph->edges;
+	for(j = 0;j < graph->n;j++){
+	   vertexs = graph->edges->elem[j];
+	   if(existEdge(graph,i,j)){
+	       deleteEdge(graph,i,j); // 如果要删除的边之前存在 删除
+	   }
+	}
+	for(j = 0;j < graph->n;j++){
+	   vertexs = graph->edges->elem[j];
+	   // 然后删除纵向的元素
+	   deleteSingle(vertexs,i);
+	}
+	// 符合条件的边都删除之后，删除横向元素
+	deleteSingle(graph->edges,i);
+	graph->n--;
+}
+
+int existEdge(Graph * graph , int i, int j){
+	Vector * edges;
+	Edge * edge;
+	if(graph->e == 0 ) return FALSE;
+	// 边的集合
+	edges = getElem(graph->edges , i);
+	edge = getElem(edges,j);
+	return (edge == NULL) ? FALSE : TRUE;
+}
+
+Edge * getEdge(Graph * graph , int i , int j){
+	Edge * edge;
+	Vector * edges;
+	if(existEdge(graph,i,j)){
+		edges = getElem(graph->edges , i);
+		edge = edges->elem[j];
+		return edge;
+	}
+	return NULL;
+}
+
+void insertEdge(Graph * graph , Elem data , int w , int i, int j){
+	Edge * edge;
+	Vector * edges;
+	if(existEdge(graph , i , j)) return ; // 如果边存在忽略
+	edge = newEdge(data ,w);
+	edges = getElem(graph->edges , i);
+	edges->elem[j] = edge;
 	graph->e++;
+}
+
+void deleteEdge(Graph * graph , int i , int j){
+    Edge * edge;
+	Vector * edges;
+	if(!existEdge(graph , i , j)) return;
+	edges = getElem(graph->edges , i);
+	edge = getElem(edges , j);
+	free(edge);
+	edges->elem[j] = NULL;// 重新指向
+	graph->e--;
 }

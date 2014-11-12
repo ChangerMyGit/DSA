@@ -39,3 +39,13 @@ Vertex * newVertex(Elem data);
 Edge * newEdge(Elem data , int w);
 // 顶点插入
 void insertVertex(Graph * graph , Elem data);
+// 删除顶点
+void deleteVertex(Graph * graph , int i);
+// 边插入
+void insertEdge(Graph * graph , Elem data , int w , int i, int j);
+// 边是否存在
+int existEdge(Graph * graph , int i, int j);
+// 获取边
+Edge * getEdge(Graph * graph , int i , int j);
+// 边删除
+void deleteEdge(Graph * graph , int i , int j);

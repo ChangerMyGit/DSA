@@ -49,3 +49,5 @@ int existEdge(Graph * graph , int i, int j);
 Edge * getEdge(Graph * graph , int i , int j);
 // ±ßÉ¾³ý
 void deleteEdge(Graph * graph , int i , int j);
+// ´òÓ¡Í¼
+void printGraph(Graph * graph);

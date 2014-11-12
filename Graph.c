@@ -56,7 +56,7 @@ void insertVertex(Graph * graph , Elem data){
 }
 
 void deleteVertex(Graph * graph , int i){
-	int j;
+	int j , k;
 	Vector * vertexs;
 	Vector * edges ;
 	if(graph->n == 0 || i > graph->n) return ;
@@ -64,15 +64,17 @@ void deleteVertex(Graph * graph , int i){
 	deleteSingle(graph->vertexs,i);
 	edges = graph->edges;
 	for(j = 0;j < graph->n;j++){
-	   vertexs = graph->edges->elem[j];
-	   if(existEdge(graph,i,j)){
-	       deleteEdge(graph,i,j); // 如果要删除的边之前存在 删除
-	   }
+		vertexs = graph->edges->elem[j];
+		for(k = 0; k< graph->n ;k++){
+			if(existEdge(graph,i,k))
+				deleteEdge(graph,i,k); // 如果要删除的边之前存在 删除
+		}
+		deleteSingle(vertexs,i);
 	}
 	for(j = 0;j < graph->n;j++){
-	   vertexs = graph->edges->elem[j];
-	   // 然后删除纵向的元素
-	   deleteSingle(vertexs,i);
+		vertexs = graph->edges->elem[j];
+		// 然后删除纵向的元素
+		//deleteSingle(vertexs,i);
 	}
 	// 符合条件的边都删除之后，删除横向元素
 	deleteSingle(graph->edges,i);
@@ -111,7 +113,7 @@ void insertEdge(Graph * graph , Elem data , int w , int i, int j){
 }
 
 void deleteEdge(Graph * graph , int i , int j){
-    Edge * edge;
+	Edge * edge;
 	Vector * edges;
 	if(!existEdge(graph , i , j)) return;
 	edges = getElem(graph->edges , i);
@@ -119,4 +121,19 @@ void deleteEdge(Graph * graph , int i , int j){
 	free(edge);
 	edges->elem[j] = NULL;// 重新指向
 	graph->e--;
+}
+
+void printGraph(Graph * graph){
+	int i , j;
+	Edge * edge;
+	Vector * edgs;
+	Vector * edgess = graph->edges;
+	for(i = 0;i < graph->n ; i++){
+		edgs = getElem(edgess,i);
+		for(j = 0;j < graph->n ; j++){
+			edge = getElem(edgs,j);
+			printf("%d     " , (edge == NULL) ? 0 : edge->weight);
+		}
+		printf("\n");
+	}
 }

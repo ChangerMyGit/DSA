@@ -16,6 +16,10 @@ int main(){
 	edge = getEdge(graph,1,2);
 	printf(" %c \n", ((Vertex *)getElem(graph->vertexs,0))->data);
 	printf(" %c \n", ((Vertex *)getElem(graph->vertexs,1))->data);
+	printGraph(graph);
+	deleteVertex(graph,1);
+	insertEdge(graph,"OK",300,2,1);
+/**
 	if(edge)
 		printf(" %s %d \n", edge->data ,edge->weight);
 	deleteVertex(graph,1);
@@ -23,5 +27,8 @@ int main(){
 	edge1 = getEdge(graph,2,3);
 	if(edge1)
 		printf(" %s %d \n", edge1->data ,edge1->weight);
+**/
+	printf("\n");
+	printGraph(graph);
 	return 0;
 }

@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include "Vector.h"
+#include "Queue.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -132,8 +133,50 @@ void printGraph(Graph * graph){
 		edgs = getElem(edgess,i);
 		for(j = 0;j < graph->n ; j++){
 			edge = getElem(edgs,j);
-			printf("%d     " , (edge == NULL) ? 0 : edge->weight);
+			printf("%3d  " , (edge == NULL) ? 0 : edge->weight);
 		}
 		printf("\n");
 	}
+}
+
+int nextNbr(Graph * graph , int i, int j){
+	while(j >= 0 && !existEdge(graph , i , --j))
+		;// 逆序查找最近的邻接顶点
+	return j;
+}
+
+int firstNbr(Graph * graph ,int i){
+	return nextNbr(graph,i,graph->n);
+}
+
+// 广度优先遍历 v 顶点的次序
+void BFS(Graph * graph , int v){
+	int u;
+	Vertex * vertex ;
+	// 初始化队列
+	Queue * queue = initQueue();
+	vertex = graph->vertexs->elem[v];
+	// 首个顶点入队
+	enqueue(v,queue);
+	//vertex->status = DISCOVERED;
+	updateStatus(graph,v,DISCOVERED);
+	while(!emptyQueue(queue)){
+	   v = dequeue(queue);
+	   //vertex = graph->vertexs->elem[v];
+	   for(u = firstNbr(graph, v) ; u >= 0;u = nextNbr(graph,v,u)){
+		   vertex = graph->vertexs->elem[u];
+		   // 如果节点尚未发现
+		   if(vertex->status == UNDISCOVERED){
+			   updateStatus(graph,u,VISITED);
+			   enqueue(u,queue);
+		   }
+	   }  
+	   //vertex->status = VISITED;
+	   updateStatus(graph,v,VISITED);
+	}
+}
+
+void updateStatus(Graph * graph , int v , VStatus status){
+	Vertex * vertex = getElem(graph->vertexs,v);
+	vertex->status = status;
 }

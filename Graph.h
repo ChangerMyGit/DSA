@@ -51,3 +51,11 @@ Edge * getEdge(Graph * graph , int i , int j);
 void deleteEdge(Graph * graph , int i , int j);
 // 打印图
 void printGraph(Graph * graph);
+// 获取下一个邻接顶点
+int nextNbr(Graph * graph , int i, int j);
+// 获取首个邻接顶点
+int firstNbr(Graph * graph ,int i);
+// 广度优先遍历 v 顶点的次序
+void BFS(Graph * graph , int v);
+// 显示节点状态
+void updateStatus(Graph * graph , int v);

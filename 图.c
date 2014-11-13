@@ -54,7 +54,10 @@ int main(){
 		printf(" %s %d \n", edge1->data ,edge1->weight);
 	printf("\n");
 **/
-	BFS(graph,7);
+	//BFS(graph,7);
+	DFS(graph,7);
 	printGraph(graph);
+	printf("\n");
+	printfVertexs(graph);
 	return 0;
 }

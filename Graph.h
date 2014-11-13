@@ -15,6 +15,7 @@ typedef struct _vertex {
 	// 出入度数、状态
 	int inDegree, outDegree; VStatus status; 
 	int parent; int priority; //在遍历树中的父节点、优先级数
+	int clock;// 计数器 用于计算顶点被遍历的次序
 } Vertex;
 
 typedef struct _edge {
@@ -51,11 +52,17 @@ Edge * getEdge(Graph * graph , int i , int j);
 void deleteEdge(Graph * graph , int i , int j);
 // 打印图
 void printGraph(Graph * graph);
+// 打印图的顶点
+void printfVertexs(Graph * graph);
 // 获取下一个邻接顶点
 int nextNbr(Graph * graph , int i, int j);
 // 获取首个邻接顶点
 int firstNbr(Graph * graph ,int i);
 // 广度优先遍历 v 顶点的次序
 void BFS(Graph * graph , int v);
-// 显示节点状态
+// 深度优先遍历 v 顶点的次序
+void DFS(Graph * graph , int v);
+// 更新节点状态
 void updateStatus(Graph * graph , int v);
+// 更新顶点时间
+void dTime(Graph * graph , int v , int clock);

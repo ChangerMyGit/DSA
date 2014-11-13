@@ -25,6 +25,7 @@ Vertex * newVertex(Elem data){
 	vertex->outDegree = 0;
 	vertex->parent = -1;
 	vertex->priority = -1;
+	vertex->clock = 0;
 	vertex->status = UNDISCOVERED;
 	return vertex;
 }
@@ -139,6 +140,16 @@ void printGraph(Graph * graph){
 	}
 }
 
+void printfVertexs(Graph * graph){
+	int i ;
+	Vertex * vertex;
+	Vector * vertexs = graph->vertexs;
+	for(i = 0;i < graph->n ; i++){
+	   vertex = (Vertex *)getElem(vertexs,i);
+	   printf(" %d %c %d \n" , vertex->clock , vertex->data , vertex->status);
+	}
+}
+
 int nextNbr(Graph * graph , int i, int j){
 	while(j >= 0 && !existEdge(graph , i , --j))
 		;// 逆序查找最近的邻接顶点
@@ -151,17 +162,17 @@ int firstNbr(Graph * graph ,int i){
 
 // 广度优先遍历 v 顶点的次序
 void BFS(Graph * graph , int v){
-	int u;
+	int u ,clock = 0;
 	Vertex * vertex ;
 	// 初始化队列
 	Queue * queue = initQueue();
 	vertex = graph->vertexs->elem[v];
 	// 首个顶点入队
 	enqueue(v,queue);
-	//vertex->status = DISCOVERED;
 	updateStatus(graph,v,DISCOVERED);
 	while(!emptyQueue(queue)){
 	   v = dequeue(queue);
+	   dTime(graph,v,++clock);
 	   //vertex = graph->vertexs->elem[v];
 	   for(u = firstNbr(graph, v) ; u >= 0;u = nextNbr(graph,v,u)){
 		   vertex = graph->vertexs->elem[u];
@@ -179,4 +190,30 @@ void BFS(Graph * graph , int v){
 void updateStatus(Graph * graph , int v , VStatus status){
 	Vertex * vertex = getElem(graph->vertexs,v);
 	vertex->status = status;
+}
+
+void dTime(Graph * graph , int v, int clock){
+	Vertex * vertex = getElem(graph->vertexs,v);
+	vertex->clock = clock;
+}
+
+/**
+   不断向下递归查找还没访问到的顶点元素
+   如果递归到最后一级 跳出递归到上一级 再次循环处理
+   对于有向图可能存在访问不到节点的情况 所以可以使用遍历所有顶点元素
+   然后，依次使用DFS遍历。
+**/
+void DFS(Graph * graph , int v){
+    int u ,clock = 0;
+	Vertex * nextVer,  * vertex = (Vertex *)getElem(graph->vertexs,v);
+	updateStatus(graph,v,DISCOVERED);// 置状态为已探索
+	for(u = firstNbr(graph,v); u >=0 ;u = nextNbr(graph,v,u)){
+	   nextVer = (Vertex *)getElem(graph->vertexs,u);
+	   // 如果未探索递归处理
+	   if(nextVer->status == UNDISCOVERED){
+	       DFS(graph,u);
+	   }
+	}
+	// 全部处理完毕后之状态为已访问
+	updateStatus(graph,v,VISITED);
 }

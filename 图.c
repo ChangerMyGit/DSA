@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
+int mainGraph(){
 	Vector * vec;
 	Edge * edge , * edge1;
 	// ³õÊ¼»¯Í¼

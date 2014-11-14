@@ -79,7 +79,7 @@ int getTreeHeight(BinTree * binTree){
 // 递归实现
 void travPre(BinNode * binNode){
 	if(binNode){
-		printf(" %c ",binNode->data);
+		printf(" %d ",binNode->data);
 		travPre(binNode->lc);
 		travPre(binNode->rc);
 	}
@@ -122,7 +122,7 @@ void travPre_I2(BinNode * binNode){
 void travIn_R(BinNode * binNode){
 	if(!binNode) return;
 	travIn_R(binNode->lc);
-	printf(" %c ",binNode->data);
+	printf(" %d ",binNode->data);
 	travIn_R(binNode->rc);
 }
 
@@ -173,4 +173,41 @@ int get_tree_height(BinNode * binNode){
    if(binNode->lc == NULL && binNode->rc == NULL)
 	   return 0; // 叶子节点
    return MAX(get_tree_height(binNode->lc),get_tree_height(binNode->rc)) + 1;
+}
+
+BinNode * searchIn(BinNode * binNode , ElemType e){
+	if(binNode){
+		if(binNode->data == e)
+			return binNode;
+		else if(binNode->data > e)
+			return searchIn(binNode->lc,e);
+		else if(binNode->data < e)
+			return searchIn(binNode->rc,e);
+	}
+	return NULL;
+}
+
+void insertNode(BinTree * binTree , ElemType x){
+    BinNode * newNode, * parent = NULL, * binNode = root(binTree);
+	if(binNode == NULL) {
+	    insertAsRoot(binTree , x);
+		return;
+	}
+	while(binNode){
+		parent = binNode;
+		if(binNode->data == x)
+			break ;
+		else if(binNode->data > x)
+			binNode = binNode->lc;
+		else if(binNode->data < x)
+			binNode = binNode->rc;
+	}
+
+	if(binNode == NULL){
+		newNode = newBinNode(x,parent);
+		if(parent->data > x)
+			insertAsLC(x,parent);
+		else if(parent->data < x)
+			insertAsRC(x,parent);
+	}
 }

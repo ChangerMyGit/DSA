@@ -1,5 +1,6 @@
 /**
    树形结构 半线性结构
+   默认为使用二叉搜索树
 **/
 #ifndef _TREE_H
 #define _TREE_H
@@ -59,4 +60,9 @@ void traveLevel(BinNode * binNode);
 int getLeafNum(BinNode * binNode);
 // 获取树的高度 递归实现 
 int get_tree_height(BinNode * binNode);
+// 平衡搜索树的查找
+BinNode * searchIn(BinNode * binNode , ElemType e);
+BinNode * search(BinTree * tree , ElemType e);
+// 插入节点
+void insertNode(BinTree * binTree , ElemType x);
 #endif

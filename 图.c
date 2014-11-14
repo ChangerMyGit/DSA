@@ -6,7 +6,7 @@
 int main(){
 	Vector * vec;
 	Edge * edge , * edge1;
-	// 构建图 节点和 边
+	// 初始化图
 	Graph * graph = initGraph();
 	insertVertex(graph,'A');
 	insertVertex(graph,'B');
@@ -14,6 +14,18 @@ int main(){
 	insertVertex(graph,'D');
 	insertVertex(graph,'E');
 	insertVertex(graph,'F');
+	insertEdge(graph,"AB",6,0,1);
+	insertEdge(graph,"AC",3,0,2);
+	insertEdge(graph,"BC",2,1,2);
+	insertEdge(graph,"BD",5,1,3);
+	insertEdge(graph,"CB",2,2,1);
+	insertEdge(graph,"CD",3,2,3);
+	insertEdge(graph,"CE",4,2,4);
+	insertEdge(graph,"DC",3,3,2);
+	insertEdge(graph,"DE",2,3,4);
+	insertEdge(graph,"DF",3,3,5);
+	insertEdge(graph,"EF",5,4,5);
+/**
 	insertVertex(graph,'G');
 	insertVertex(graph,'S');
 	insertEdge(graph,"AE",1,0,4);
@@ -54,10 +66,14 @@ int main(){
 		printf(" %s %d \n", edge1->data ,edge1->weight);
 	printf("\n");
 **/
-	//BFS(graph,7);
-	DFS(graph,7);
+/**	
+	BFS(graph,7);
+	DFS(graph,0);
 	printGraph(graph);
 	printf("\n");
 	printfVertexs(graph);
+**/
+	Dijkstra(graph,0);
+	//printGraph(graph);
 	return 0;
 }

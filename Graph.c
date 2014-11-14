@@ -217,3 +217,70 @@ void DFS(Graph * graph , int v){
 	// 全部处理完毕后之状态为已访问
 	updateStatus(graph,v,VISITED);
 }
+
+void Dijkstra(Graph * graph , int v){
+	int i;
+	Vertex * vertex;
+	Edge * edge;
+	Vector * u = initVector(graph->n * sizeof(Vertex));
+	int * dist = (int *)malloc(graph->n * sizeof(int));
+	// 初始化U 集合
+	for(i = 0 ; i < graph->n ; i++){
+		if( i!= v)
+			insert(u,i);
+	}
+	// 初始化权值为-1
+	for(i = 0 ; i < graph->n ; i++){
+		edge = getEdge(graph,v,i);
+		//dist[i] = (edge == NULL) ? 0 : edge->weight;
+		dist[i] = -1;
+	}
+
+	while(u->size > 0){
+		v = getMinEdge(graph,u,v,dist);
+	}
+	for(i = 0 ; i < graph->n ; i++){
+		printf("%3d",dist[i]);
+	}
+	printf("\n");
+}
+
+int getMinEdge(Graph * graph , Vector * u  , int v, int * dist){
+	int i , min = -1 , weight = -1 , res , temp;
+	Edge * edge = NULL;
+	for(i = 0 ; i < u->size ; i++){
+		temp = (int)getElem(u,i);
+		edge = getEdge(graph , v ,temp);
+		if(min == -1 && weight == -1 && edge!=NULL){
+			min = i;
+			weight = edge->weight;
+			if(v == 0)
+				updateQuan(dist,temp,edge->weight);
+			else
+				updateQuan(dist,temp,dist[v] + edge->weight);
+		}
+		else{
+			if(edge!=NULL) {
+				if(edge->weight < weight){
+					min = i;
+				    weight = edge->weight;
+				}
+				if(v == 0)
+					updateQuan(dist,temp,edge->weight);
+				else
+					updateQuan(dist,temp,dist[v] + edge->weight);				
+			}
+		}
+	}
+	res = (int)getElem(u,min);
+	deleteSingle(u,min);
+	return res;
+}
+
+void updateQuan(int * dist , int i , int weight){
+	int quan = dist[i];
+	if(quan == -1) 
+		dist[i] = weight;
+	else if(quan > weight)
+		dist[i] = weight;
+}

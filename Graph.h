@@ -66,3 +66,9 @@ void DFS(Graph * graph , int v);
 void updateStatus(Graph * graph , int v);
 // 更新顶点时间
 void dTime(Graph * graph , int v , int clock);
+// 最小路径
+void Dijkstra(Graph * graph , int v);
+// 获取最小的邻接顶点
+int getMinEdge(Graph * graph , Vector * u , int v , int * dist);
+// 更新权值
+void updateQuan(int * dist , int i , int weight);

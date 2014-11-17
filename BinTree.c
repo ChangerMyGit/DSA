@@ -152,27 +152,27 @@ void traveLevel(BinNode * binNode){
 	// 入队根节点
 	enqueue(binNode,queue);
 	while(!emptyQueue(queue)){
-	   binNode = dequeue(queue);
-	   printf(" %c ",binNode->data);
-	   if(binNode->lc) enqueue(binNode->lc,queue);
-	   if(binNode->rc) enqueue(binNode->rc,queue);
+		binNode = dequeue(queue);
+		printf(" %c ",binNode->data);
+		if(binNode->lc) enqueue(binNode->lc,queue);
+		if(binNode->rc) enqueue(binNode->rc,queue);
 	}
 	free(queue);
 }
 
 // 递归求解
 int getLeafNum(BinNode * binNode){
-   if(binNode == NULL) return 0;
-   if(binNode->lc == NULL && binNode->rc == NULL)
-	   return 1;
-   return getLeafNum(binNode->lc) + getLeafNum(binNode->rc);
+	if(binNode == NULL) return 0;
+	if(binNode->lc == NULL && binNode->rc == NULL)
+		return 1;
+	return getLeafNum(binNode->lc) + getLeafNum(binNode->rc);
 }
 
 int get_tree_height(BinNode * binNode){
-   if(!binNode) return -1; // 空结点
-   if(binNode->lc == NULL && binNode->rc == NULL)
-	   return 0; // 叶子节点
-   return MAX(get_tree_height(binNode->lc),get_tree_height(binNode->rc)) + 1;
+	if(!binNode) return -1; // 空结点
+	if(binNode->lc == NULL && binNode->rc == NULL)
+		return 0; // 叶子节点
+	return MAX(get_tree_height(binNode->lc),get_tree_height(binNode->rc)) + 1;
 }
 
 BinNode * searchIn(BinNode * binNode , ElemType e){
@@ -187,10 +187,25 @@ BinNode * searchIn(BinNode * binNode , ElemType e){
 	return NULL;
 }
 
+BinNode * searchParent(BinTree * tree , ElemType e){
+	BinNode * parent = NULL;
+	BinNode * node = root(tree);
+	while(node){
+		if(node->data > e)
+			node = node->lc;
+		else if(node->data < e)
+			node = node->rc;
+		else if(node->data == e)
+			break;
+		parent = node;
+	}
+	return parent;
+}
+
 void insertNode(BinTree * binTree , ElemType x){
-    BinNode * newNode, * parent = NULL, * binNode = root(binTree);
+	BinNode * newNode, * parent = NULL, * binNode = root(binTree);
 	if(binNode == NULL) {
-	    insertAsRoot(binTree , x);
+		insertAsRoot(binTree , x);
 		return;
 	}
 	while(binNode){
@@ -209,5 +224,64 @@ void insertNode(BinTree * binTree , ElemType x){
 			insertAsLC(x,parent);
 		else if(parent->data < x)
 			insertAsRC(x,parent);
+		binTree->size++;
 	}
 }
+
+BinNode * getMax(BinNode * binNode){
+	if(binNode == NULL) return NULL;
+	while(binNode->rc)
+		binNode = binNode->rc;
+	return binNode;
+}
+
+BinNode * getMin(BinNode * binNode){
+	while(binNode->lc)
+		binNode = binNode->lc;
+	return binNode;
+}
+
+void deleteNode(BinNode * node){
+	ElemType e;
+	BinNode * child , * parent = node->parent;
+	if((node->lc && !node->rc) || (!node->lc && node->rc)){
+		child = (node->lc) ? node->lc : node->rc;
+		node->data = child->data;
+		node->height = child->height;
+		free(child);
+		if(node->lc)
+			node->lc = NULL; 
+		else 
+			node->rc = NULL;
+	}
+	// 叶子节点
+	else if(!node->lc && !node->rc){
+		if(parent->lc == node)
+			parent->lc = NULL;
+		else 
+			parent->rc = NULL;
+		free(node);
+	} 
+	else if(node->lc && node->rc){
+		// 找到删除元素的最小后继
+		// 首先互换元素，然后替换
+		child = getMin(node->rc);
+		e = child->data;
+		child->data = node->data;
+		node->data = e;
+		deleteNode(child);
+	}
+}
+
+// 删除节点
+void deleteBinNode(BinTree * binTree , ElemType x){
+	BinNode * parent;
+	BinNode * node = searchIn(root(binTree),x);
+	if(node){
+		parent = node->parent;
+		deleteNode(node);
+		binTree->size--;
+		updateHeightAbove(parent);
+	}
+}
+

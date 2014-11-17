@@ -62,7 +62,15 @@ int getLeafNum(BinNode * binNode);
 int get_tree_height(BinNode * binNode);
 // 平衡搜索树的查找
 BinNode * searchIn(BinNode * binNode , ElemType e);
-BinNode * search(BinTree * tree , ElemType e);
+// 查找符合条件节点的父节点
+BinNode * searchParent(BinTree * tree , ElemType e);
 // 插入节点
 void insertNode(BinTree * binTree , ElemType x);
+// 查找最大值
+BinNode * getMax(BinNode * binNode);
+// 查找最小值
+BinNode * getMin(BinNode * binNode);
+// 删除节点
+void deleteBinNode(BinTree * binTree , ElemType x);
+void deleteNode(BinNode * node);
 #endif

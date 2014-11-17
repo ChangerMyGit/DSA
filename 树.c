@@ -17,7 +17,6 @@ int main(){
 		insertAsRC(11,root(tree)->lc);
 		//insertNode(tree,3);
 		*/
-		/*
 		insertNode(tree,16);
 		insertNode(tree,10);
 		insertNode(tree,25);
@@ -27,17 +26,24 @@ int main(){
 		insertNode(tree,11);
 		insertNode(tree,3);
 		insertNode(tree,33);
-		*/
+		//deleteBinNode(tree,28);
+		//deleteBinNode(tree,5);
+		deleteBinNode(tree,25);
+		deleteBinNode(tree,3);
+		deleteBinNode(tree,33);
+		/*
 		for(i = 1 ; i < 20 ; i++){
 		   insertNode(tree,i);
-		}
+		} 
+		*/
 	}
 	if(tree->size!=0){
 	    printf("高度： %d\n",getTreeHeight(tree));
         printf("\n中序遍历---------------\n");
 		travIn_R(root(tree));
-		//searchIn(root(tree),11,hot);
-		printf("\n %d ",searchIn(root(tree),11)->data);
+		//printf("\n %d ",searchIn(root(tree),11)->data);
+		//printf("\n %d ", getMax(root(tree))->data);
+		//printf("\n %d ", getMin(root(tree))->data);
 		printf("\n");
 	}
 	/*

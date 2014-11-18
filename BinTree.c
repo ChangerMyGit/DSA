@@ -7,6 +7,32 @@
 #define stature(p) ((p) ? p->height : -1)
 #define MAX(A , B) ( (A) > (B)  ? (A) : (B) )
 
+// AVL 平衡因子
+// 理想平衡
+#define Banlance(x) ( stature((x)->lc) == stature((x)->rc) )
+// 平衡因子
+#define BalFac(x) ( stature((x)->lc) - stature((x)->rc) )
+// 平衡条件
+#define AvlBanlance(x) ( ( BalFac(x) > -2 ) && ( BalFac(x) < 2 ) )
+
+/******************************
+* BinNode状态与性质的判断
+******************************/
+
+#define IsRoot(x) ( ! ( (x)->parent ) )
+#define IsLChild(x) ( ! IsRoot(x) && ( (x) == (x)->parent->lc ) )
+#define IsRChild(x) ( ! IsRoot(x) && ( (x) == (x)->parent->rc ) )
+#define HasParent(x) ( ! IsRoot(x) )
+#define HasLChild(x) ( (x)->lc )
+#define HasRChild(x) ( (x)->rc )
+#define HasChild(x) ( HasLChild(x) || HasRChild(x) ) //至少拥有一个孩子
+#define HasChild(x) ( HasLChild(x) || HasRChild(x) ) //至少拥有一个孩子
+#define IsLeaf(x) ( ! HasChild(x) )
+/*来自父亲的引用*/
+#define FromParentTo(x) ( ( IsLChild(x) ? (x)->parent->lc : (x)->parent->rc ) )
+// 在左，右孩子中取更高者
+#define tallerChild(x) ( stature( (x)->lc ) > stature( (x)->rc ) ) ? (x)->lc : (x)->rc
+
 BinTree * initBinTree(){
 	BinTree * tree = (BinTree *)malloc(sizeof(BinTree));
 	tree->root = NULL;
@@ -122,7 +148,8 @@ void travPre_I2(BinNode * binNode){
 void travIn_R(BinNode * binNode){
 	if(!binNode) return;
 	travIn_R(binNode->lc);
-	printf(" %d ",binNode->data);
+	printf("Left : %d  Center : %d  Right : %d \n",binNode->lc ? binNode->lc->data :
+		0 , binNode->data , binNode->rc ? binNode->rc->data : 0);
 	travIn_R(binNode->rc);
 }
 
@@ -170,8 +197,8 @@ int getLeafNum(BinNode * binNode){
 
 int get_tree_height(BinNode * binNode){
 	if(!binNode) return -1; // 空结点
-	if(binNode->lc == NULL && binNode->rc == NULL)
-		return 0; // 叶子节点
+	//if(binNode->lc == NULL && binNode->rc == NULL)
+	//return 0; // 叶子节点
 	return MAX(get_tree_height(binNode->lc),get_tree_height(binNode->rc)) + 1;
 }
 
@@ -202,7 +229,7 @@ BinNode * searchParent(BinTree * tree , ElemType e){
 	return parent;
 }
 
-void insertNode(BinTree * binTree , ElemType x){
+BinNode * insertNode(BinTree * binTree , ElemType x){
 	BinNode * newNode, * parent = NULL, * binNode = root(binTree);
 	if(binNode == NULL) {
 		insertAsRoot(binTree , x);
@@ -226,6 +253,7 @@ void insertNode(BinTree * binTree , ElemType x){
 			insertAsRC(x,parent);
 		binTree->size++;
 	}
+	return newNode;
 }
 
 BinNode * getMax(BinNode * binNode){
@@ -285,3 +313,80 @@ void deleteBinNode(BinTree * binTree , ElemType x){
 	}
 }
 
+BinNode * connect34(BinNode * a , BinNode * b , BinNode * c,
+	BinNode * T0 , BinNode * T1 , BinNode * T2 , BinNode * T3){
+		a->lc = T0;
+		if(T0) T0->parent = a;
+		a->rc = T1;
+		if(T1) T1->parent = a;
+		updateHeight(a); // 只需局部更新高度 插入操作如果局部更新成功，总体高度成功
+		c->lc = T2;
+		if(T2) T2->parent = c;
+		c->rc = T3;
+		if(T3) T3->parent = c;
+		updateHeight(c);
+		b->lc = a;
+		b->rc = c;
+		a->parent = b;
+		c->parent = b;
+		updateHeight(b);
+		return b;
+}
+
+
+BinNode * insertNodeAVL(ElemType e , BinTree * binTree){
+	BinNode * newNode = insertNode(binTree,e);
+	BinNode * g , * parent ;
+	int x ;
+	for(g = newNode->parent;g;g = g->parent){
+		x = BalFac(g);
+		//  一旦发现g失衡，则通过调整恢复平衡
+		if(!AvlBanlance(g)){
+			// g 失衡最少存在两级孩子
+			// 在g中找到高度更高的孩子
+			parent = g->parent;
+			if(!IsRoot(g)){
+				if(parent->lc == g)
+					parent->lc = rotateAt(tallerChild(tallerChild(g)));
+				else if(parent->rc == g)
+					parent->rc = rotateAt(tallerChild(tallerChild(g)));
+			} else {
+				binTree->root = rotateAt(tallerChild(tallerChild(g)));
+			}
+			break;
+		} else // 否则在原先平衡的祖先处，更新其高度，平衡性虽然不变，但是高度可能改变
+			updateHeight(g);
+	}
+}
+
+// 旋转
+BinNode * rotateAt(BinNode * v){
+	BinNode * p = v->parent;
+	BinNode * g = p->parent;
+	// 左左 或者左右
+	if(IsLChild(v)){
+		// 单旋转
+		if(IsLChild(p)){
+			p->parent = g->parent;
+			return connect34 ( v, p, g, v->lc, v->rc, p->rc, g->rc );
+		} 
+		// 双旋转
+		else {
+			v->parent = g->parent;
+			return connect34 ( p, v, g, p->lc, v->lc, v->rc, g->rc );
+		}
+	}
+	// 右右 右左
+	else {
+		// 右右 单旋转
+		if(IsRChild(v)){
+			p->parent = g->parent;
+			return connect34(g,p,v,g->lc,p->lc,v->lc,v->rc);
+		} 
+		// 右左 双旋转
+		else {
+			v->parent = g->parent;
+			return connect34(g,v,p,g->lc,v->lc,v->rc,p->rc);
+		}
+	}
+}

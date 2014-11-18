@@ -17,20 +17,38 @@ int main(){
 		insertAsRC(11,root(tree)->lc);
 		//insertNode(tree,3);
 		*/
-		insertNode(tree,16);
+		/*insertNode(tree,16);
 		insertNode(tree,10);
 		insertNode(tree,25);
 		insertNode(tree,19);
 		insertNode(tree,28);
 		insertNode(tree,5);
 		insertNode(tree,11);
-		insertNode(tree,3);
+		insertNode(tree,4);
 		insertNode(tree,33);
+		insertNodeAVL(36,tree);
+		insertNodeAVL(38,tree);
+		insertNodeAVL(39,tree);
+		insertNodeAVL(40,tree);
+		insertNodeAVL(41,tree);
+		*/
+		insertNodeAVL(3,tree);
+		insertNodeAVL(5,tree);
+		insertNodeAVL(11,tree);
+		insertNodeAVL(16,tree);
+		insertNodeAVL(19,tree);
+		insertNodeAVL(25,tree);
+		insertNodeAVL(28,tree);
+		insertNodeAVL(33,tree);
+		insertNodeAVL(36,tree);
+		insertNodeAVL(39,tree);
+		insertNodeAVL(41,tree);
+		insertNodeAVL(43,tree);
 		//deleteBinNode(tree,28);
 		//deleteBinNode(tree,5);
-		deleteBinNode(tree,25);
-		deleteBinNode(tree,3);
-		deleteBinNode(tree,33);
+		//deleteBinNode(tree,25);
+		//deleteBinNode(tree,3);
+		//deleteBinNode(tree,33);
 		/*
 		for(i = 1 ; i < 20 ; i++){
 		   insertNode(tree,i);
@@ -38,7 +56,7 @@ int main(){
 		*/
 	}
 	if(tree->size!=0){
-	    printf("高度： %d\n",getTreeHeight(tree));
+	    printf("高度： %d\n",get_tree_height(root(tree)));
         printf("\n中序遍历---------------\n");
 		travIn_R(root(tree));
 		//printf("\n %d ",searchIn(root(tree),11)->data);

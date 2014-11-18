@@ -29,9 +29,10 @@
 #define HasChild(x) ( HasLChild(x) || HasRChild(x) ) //至少拥有一个孩子
 #define IsLeaf(x) ( ! HasChild(x) )
 /*来自父亲的引用*/
-#define FromParentTo(x) ( ( IsLChild(x) ? (x)->parent->lc : (x)->parent->rc ) )
-// 在左，右孩子中取更高者
-#define tallerChild(x) ( stature( (x)->lc ) > stature( (x)->rc ) ) ? (x)->lc : (x)->rc
+#define FromParentTo(x , y) ( IsRoot(x) ? y->root : ( IsLChild(x) ? (x)->parent->lc : (x)->parent->rc ) )
+// 在左，右孩子中取更高者 等高 与父亲同侧者
+#define tallerChild(x) ( stature( (x)->lc ) > stature( (x)->rc ) ? (x)->lc : ( /* 左高*/stature( (x)->lc ) < stature( (x)->rc ) ? (x)->rc : (  /*右高*/ IsLChild( (x) ) ? (x)->lc : (x)->rc)))
+//( stature( (x)->lc ) > stature( (x)->rc ) ) ? (x)->lc : (x)->rc
 
 BinTree * initBinTree(){
 	BinTree * tree = (BinTree *)malloc(sizeof(BinTree));
@@ -337,14 +338,13 @@ BinNode * connect34(BinNode * a , BinNode * b , BinNode * c,
 BinNode * insertNodeAVL(ElemType e , BinTree * binTree){
 	BinNode * newNode = insertNode(binTree,e);
 	BinNode * g , * parent ;
-	int x ;
 	for(g = newNode->parent;g;g = g->parent){
-		x = BalFac(g);
 		//  一旦发现g失衡，则通过调整恢复平衡
 		if(!AvlBanlance(g)){
 			// g 失衡最少存在两级孩子
 			// 在g中找到高度更高的孩子
 			parent = g->parent;
+			//FromParentTo(g,binTree) = rotateAt(tallerChild(tallerChild(g)));
 			if(!IsRoot(g)){
 				if(parent->lc == g)
 					parent->lc = rotateAt(tallerChild(tallerChild(g)));
@@ -387,6 +387,37 @@ BinNode * rotateAt(BinNode * v){
 		else {
 			v->parent = g->parent;
 			return connect34(g,v,p,g->lc,v->lc,v->rc,p->rc);
+		}
+	}
+}
+
+void deleteNodeAVL(BinTree * binTree , ElemType x){
+	BinNode * g , * parent;
+	BinNode * node = searchIn(root(binTree),x);
+	if(node){
+		g = node->parent;
+		deleteNode(node);
+		// 删除后可能导致失衡
+		for(;g;g = g->parent){
+			if(!AvlBanlance(g)){
+				parent = g->parent;
+				if(!IsRoot(g)){
+					if(parent->lc == g){
+					    parent->lc = rotateAt(tallerChild(tallerChild(g)));
+						g = parent->lc;
+					}
+						
+					else if(parent->rc == g){
+						parent->rc = rotateAt(tallerChild(tallerChild(g)));
+						g = parent->rc;
+					}
+					
+				} else {
+					binTree->root = rotateAt(tallerChild(tallerChild(g)));
+					g = binTree->root;
+				}
+				updateHeight(g);
+			}
 		}
 	}
 }

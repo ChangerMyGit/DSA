@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "AVLTree.h"
 
-int main(){
+int mainAVL(){
 	int i;
 	BinTree * tree = initBinTree();
 	for(i = 1;i<=10;i++)

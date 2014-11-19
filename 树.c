@@ -65,8 +65,9 @@ int mainTree(){
 		//printf("\n %d ", getMin(root(tree))->data);
 		printf("\n");
 	}
-    for(i = 1 ;i < 7 ; i++)
-		deleteNodeAVL(tree , i);
+    for(i = 1 ;i < 8 ; i++)
+		deleteBinNode(tree,i);
+		//deleteNodeAVL(tree , i);
 	if(tree->size!=0){
 		printf("根节点：%d \n" , root(tree)->data);
 		printf("高度： %d\n",get_tree_height(root(tree)));

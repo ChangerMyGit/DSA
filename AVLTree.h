@@ -6,6 +6,14 @@
 #include "Queue.h"
 #include "BinTree.h"
 
+// AVL 平衡因子
+// 理想平衡
+#define Banlance(x) ( stature((x)->lc) == stature((x)->rc) )
+// 平衡因子
+#define BalFac(x) ( stature((x)->lc) - stature((x)->rc) )
+// 平衡条件
+#define AvlBanlance(x) ( ( BalFac(x) > -2 ) && ( BalFac(x) < 2 ) )
+
 /**
   AVL 平衡二叉树的插入删除
   插入操作O（1）的复杂度 删除操作最坏可能是O（logn）的复杂度

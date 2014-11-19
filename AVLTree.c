@@ -4,42 +4,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// 返回节点高度 空树为-1
-#define stature(p) ((p) ? p->height : -1)
-#define MAX(A , B) ( (A) > (B)  ? (A) : (B) )
-
-// AVL 平衡因子
-// 理想平衡
-#define Banlance(x) ( stature((x)->lc) == stature((x)->rc) )
-// 平衡因子
-#define BalFac(x) ( stature((x)->lc) - stature((x)->rc) )
-// 平衡条件
-#define AvlBanlance(x) ( ( BalFac(x) > -2 ) && ( BalFac(x) < 2 ) )
-
-/******************************
-* BinNode状态与性质的判断
-******************************/
-
-#define IsRoot(x) ( ! ( (x)->parent ) )
-#define IsLChild(x) ( ! IsRoot(x) && ( (x) == (x)->parent->lc ) )
-#define IsRChild(x) ( ! IsRoot(x) && ( (x) == (x)->parent->rc ) )
-#define HasParent(x) ( ! IsRoot(x) )
-#define HasLChild(x) ( (x)->lc )
-#define HasRChild(x) ( (x)->rc )
-#define HasChild(x) ( HasLChild(x) || HasRChild(x) ) //至少拥有一个孩子
-#define HasChild(x) ( HasLChild(x) || HasRChild(x) ) //至少拥有一个孩子
-#define IsLeaf(x) ( ! HasChild(x) )
-/*来自父亲的引用*/
-#define FromParentTo(x , y) ( IsRoot(x) ? y->root : ( IsLChild(x) ? (x)->parent->lc : (x)->parent->rc ) )
-// 在左，右孩子中取更高者 等高 与父亲同侧者
-#define tallerChild(x) ( stature( (x)->lc ) > stature( (x)->rc ) ? (x)->lc : ( /* 左高*/stature( (x)->lc ) < stature( (x)->rc ) ? (x)->rc : (  /*右高*/ IsLChild( (x) ) ? (x)->lc : (x)->rc)))
-
 void deleteNodeAVL(BinTree * binTree , ElemType x){
 	BinNode * g , * parent;
 	BinNode * node = searchIn(root(binTree),x);
 	if(node){
 		g = node->parent;
-		deleteNode(node);
+		deleteNode(node,binTree);
 		// 删除后可能导致失衡
 		for(;g;g = g->parent){
 			if(!AvlBanlance(g)){

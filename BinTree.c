@@ -3,9 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// 返回节点高度 空树为-1
-#define stature(p) ((p) ? p->height : -1)
-#define MAX(A , B) ( (A) > (B)  ? (A) : (B) )
+
 
 // AVL 平衡因子
 // 理想平衡
@@ -270,25 +268,32 @@ BinNode * getMin(BinNode * binNode){
 	return binNode;
 }
 
-void deleteNode(BinNode * node){
+void deleteNode(BinNode * node, BinTree * binTree){
 	ElemType e;
 	BinNode * child , * parent = node->parent;
+	// 存在一个节点
 	if((node->lc && !node->rc) || (!node->lc && node->rc)){
 		child = (node->lc) ? node->lc : node->rc;
-		node->data = child->data;
-		node->height = child->height;
-		free(child);
-		if(node->lc)
-			node->lc = NULL; 
-		else 
-			node->rc = NULL;
+		child->parent = parent;
+		if(!IsRoot(node)){
+			if(IsLChild(node)) 
+				parent->lc = child ;
+			else 
+				parent->rc = child;
+		} else
+			binTree->root = child;
+		free(node);
 	}
 	// 叶子节点
 	else if(!node->lc && !node->rc){
-		if(parent->lc == node)
-			parent->lc = NULL;
+		if(!IsRoot(node)){
+			if(IsLChild(node))
+				parent->lc = NULL;
+			else
+				parent->rc = NULL;
+		}
 		else 
-			parent->rc = NULL;
+			binTree->root = NULL;
 		free(node);
 	} 
 	else if(node->lc && node->rc){
@@ -298,23 +303,24 @@ void deleteNode(BinNode * node){
 		e = child->data;
 		child->data = node->data;
 		node->data = e;
-		deleteNode(child);
+		deleteNode(child,binTree);
 	}
 }
 
 // 删除节点
-/*
+
 void deleteBinNode(BinTree * binTree , ElemType x){
 	BinNode * parent;
 	BinNode * node = searchIn(root(binTree),x);
 	if(node){
 		parent = node->parent;
-		deleteNode(node);
+		deleteNode(node,binTree);
 		binTree->size--;
-		updateHeightAbove(parent);
+		if(parent)
+			updateHeightAbove(parent);		
 	}
 }
-
+/*
 BinNode * connect34(BinNode * a , BinNode * b , BinNode * c,
 	BinNode * T0 , BinNode * T1 , BinNode * T2 , BinNode * T3){
 		a->lc = T0;

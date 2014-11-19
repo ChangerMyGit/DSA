@@ -20,6 +20,29 @@ typedef struct _tree {
 	BinNode * root;
 } BinTree;
 
+// 返回节点高度 空树为-1
+#define stature(p) ((p) ? p->height : -1)
+#define MAX(A , B) ( (A) > (B)  ? (A) : (B) )
+
+/******************************
+* BinNode状态与性质的判断
+******************************/
+
+#define IsRoot(x) ( ! ( (x)->parent ) )
+#define IsLChild(x) ( ! IsRoot(x) && ( (x) == (x)->parent->lc ) )
+#define IsRChild(x) ( ! IsRoot(x) && ( (x) == (x)->parent->rc ) )
+#define HasParent(x) ( ! IsRoot(x) )
+#define HasLChild(x) ( (x)->lc )
+#define HasRChild(x) ( (x)->rc )
+#define HasChild(x) ( HasLChild(x) || HasRChild(x) ) //至少拥有一个孩子
+#define HasChild(x) ( HasLChild(x) || HasRChild(x) ) //至少拥有一个孩子
+#define IsLeaf(x) ( ! HasChild(x) )
+
+/*来自父亲的引用*/
+#define FromParentTo(x , y) ( IsRoot(x) ? y->root : ( IsLChild(x) ? (x)->parent->lc : (x)->parent->rc ) )
+// 在左，右孩子中取更高者 等高 与父亲同侧者
+#define tallerChild(x) ( stature( (x)->lc ) > stature( (x)->rc ) ? (x)->lc : ( /* 左高*/stature( (x)->lc ) < stature( (x)->rc ) ? (x)->rc : (  /*右高*/ IsLChild( (x) ) ? (x)->lc : (x)->rc)))
+
 // 二叉树初始化
 BinTree * initBinTree();
 // 构建新的树节点
@@ -72,7 +95,7 @@ BinNode * getMax(BinNode * binNode);
 BinNode * getMin(BinNode * binNode);
 // 删除节点
 void deleteBinNode(BinTree * binTree , ElemType x);
-void deleteNode(BinNode * node);
+void deleteNode(BinNode * node , BinTree * binTree);
 /**
   AVL 平衡二叉树的插入删除
   插入操作O（1）的复杂度 删除操作最坏可能是O（logn）的复杂度

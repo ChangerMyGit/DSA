@@ -303,6 +303,7 @@ void deleteNode(BinNode * node){
 }
 
 // É¾³ý½Úµã
+/*
 void deleteBinNode(BinTree * binTree , ElemType x){
 	BinNode * parent;
 	BinNode * node = searchIn(root(binTree),x);
@@ -421,3 +422,5 @@ void deleteNodeAVL(BinTree * binTree , ElemType x){
 		}
 	}
 }
+
+*/

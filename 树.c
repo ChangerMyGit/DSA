@@ -2,8 +2,9 @@
 #include "Queue.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "AVLTree.h"
 
-int main(){
+int mainTree(){
     int i;
 	BinTree * tree = initBinTree();
 	if(tree->size == 0){

@@ -32,6 +32,7 @@ int main(){
 		insertNodeAVL(40,tree);
 		insertNodeAVL(41,tree);
 		*/
+		/* 
 		insertNodeAVL(3,tree);
 		insertNodeAVL(5,tree);
 		insertNodeAVL(11,tree);
@@ -44,18 +45,17 @@ int main(){
 		insertNodeAVL(39,tree);
 		insertNodeAVL(41,tree);
 		insertNodeAVL(43,tree);
-		//deleteBinNode(tree,28);
-		//deleteBinNode(tree,5);
-		//deleteBinNode(tree,25);
-		//deleteBinNode(tree,3);
-		//deleteBinNode(tree,33);
-		/*
-		for(i = 1 ; i < 20 ; i++){
-		   insertNode(tree,i);
+		deleteBinNode(tree,28);
+		deleteBinNode(tree,5);
+		deleteBinNode(tree,25);
+		deleteBinNode(tree,3);
+		deleteBinNode(tree,33); */
+		for(i = 1 ; i < 10 ; i++){
+		   insertNodeAVL(i,tree);
 		} 
-		*/
 	}
 	if(tree->size!=0){
+		printf("根节点：%d \n" , root(tree)->data);
 	    printf("高度： %d\n",get_tree_height(root(tree)));
         printf("\n中序遍历---------------\n");
 		travIn_R(root(tree));
@@ -63,6 +63,14 @@ int main(){
 		//printf("\n %d ", getMax(root(tree))->data);
 		//printf("\n %d ", getMin(root(tree))->data);
 		printf("\n");
+	}
+    for(i = 1 ;i < 7 ; i++)
+		deleteNodeAVL(tree , i);
+	if(tree->size!=0){
+		printf("根节点：%d \n" , root(tree)->data);
+		printf("高度： %d\n",get_tree_height(root(tree)));
+        printf("\n中序遍历---------------\n");
+		travIn_R(root(tree));
 	}
 	/*
 	if(tree->size == 0){

@@ -85,4 +85,6 @@ BinNode * connect34(BinNode * a , BinNode * b , BinNode * c,
 
 // 旋转使用3+4 重构
 BinNode * rotateAt(BinNode * v);
+
+PrintNodeAtLevel(BinNode * v , int level);
 #endif

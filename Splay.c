@@ -3,6 +3,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+BinNode * searchSplay(BinTree * tree , ElemType e){
+	BinNode * parent;
+	BinNode * rootNode = root(tree);
+	parent = rootNode->parent;
+	while(rootNode){
+		if(rootNode->data == e){
+			splay(rootNode);
+			tree->root = rootNode;
+			return rootNode;
+		}
+		else if(rootNode->data > e){
+			parent = rootNode;
+			rootNode = rootNode->lc;		
+		}
+		else if(rootNode->data < e){
+			parent = rootNode;
+			rootNode = rootNode->rc;
+		}	
+	}
+	splay(parent);
+	tree->root = parent;
+	return parent;
+}
+
+BinNode * insertSplay(BinTree * tree , ElemType e){
+	BinNode * newNode , * binNode;
+	binNode = searchSplay(tree,e);
+	if(binNode->data != e){
+		newNode = newBinNode(e,NULL);
+		if(e > root(tree)->data){
+			newNode->lc = root(tree);
+			tree->root->parent = newNode;
+		}
+		else {
+			newNode->rc = root(tree);
+			tree->root->parent = newNode;
+		}
+		tree->root = newNode;	
+	}
+}
+
+
+void deleteSplay(BinTree * tree , ElemType e){
+	BinNode * binNode;
+	binNode = searchSplay(tree,e);
+	if(binNode->data == e)
+		deleteNode(binNode,tree);
+}
+
 void attachAsLChild(BinNode * p , BinNode * lc){
 	p->lc = lc; 
 	if (lc) 
@@ -22,6 +71,9 @@ BinNode * splay(BinNode * v){//v为因最近访问而需伸展的节点位置
 	while ( ( p = v->parent ) && ( g = p->parent ) ) {
 		//每轮之后*v都以原曾祖父（great-grand parent）为父
 		// 此处的旋转 与AVL 不同 不需要判断平衡的情况
+		// zig-zag 和 zag-zig 与AVL旋转一样 先于父节点旋转再和祖父节点旋转
+		// zig-zig 和 zag-zag 与AVL不同，先是父节点和祖父节点旋转，然后再和子节点旋转
+		// 每次伸展之后 会使数的高度降低 最好情况 会降低一半
 		BinNode * gg = g->parent; 
 		if ( IsLChild ( v ) )
 			if ( IsLChild ( p ) ) { 

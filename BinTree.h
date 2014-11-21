@@ -85,6 +85,8 @@ int getLeafNum(BinNode * binNode);
 int get_tree_height(BinNode * binNode);
 // 平衡搜索树的查找
 BinNode * searchIn(BinNode * binNode , ElemType e);
+// 查找并且赋值父节点指针
+BinNode * searchAndSetParent(BinNode * binNode , ElemType e , BinNode * parent);
 // 查找符合条件节点的父节点
 BinNode * searchParent(BinTree * tree , ElemType e);
 // 插入节点

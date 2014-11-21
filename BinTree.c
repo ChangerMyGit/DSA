@@ -213,6 +213,24 @@ BinNode * searchIn(BinNode * binNode , ElemType e){
 	return NULL;
 }
 
+BinNode * searchAndSetParent(BinNode * binNode , ElemType e , BinNode * parent){
+	while(binNode){
+		if(binNode->data == e){
+			*parent = *(binNode->parent);
+			return binNode;
+		}
+		else if(binNode->data > e){
+			*parent = *binNode;
+			binNode = binNode->lc;
+		}
+		else if(binNode->data < e){
+			*parent = *binNode;
+			binNode = binNode->rc;
+		}
+	}
+	return NULL;
+}
+
 BinNode * searchParent(BinTree * tree , ElemType e){
 	BinNode * parent = NULL;
 	BinNode * node = root(tree);

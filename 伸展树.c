@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main(){
+int mainSplay(){
 	int i;
 	BinNode * binNode;
 	BinTree * tree = initBinTree();

@@ -32,7 +32,7 @@ int mainVector(){
 	merge(vec,0,vec->size-1);
 	printVector(vec);
 	printf("\n");
-	printf("%d\n",BinSearch((int *)vec->elem,0,vec->size,100));
+	printf("%d\n",BinSearch((int *)vec->elem,0,vec->size,101));
 	return 0;
 }
 
@@ -44,5 +44,5 @@ int BinSearch(int a[],int lo , int hi,int key){
 		else if(a[mi] > key) return BinSearch(a,lo,mi,key);
 		else if(a[mi] < key) return BinSearch(a,mi+1,hi,key);
 	}
-	return -1;
+	return lo;
 }

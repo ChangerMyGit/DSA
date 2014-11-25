@@ -23,12 +23,12 @@ BTree * initBtree(int order);
 BTNode * newBTNode(BTNode * parent , int order, int keys_Length);
 // 查询节点
 BTNode * searchBtree(Elem e , BTree * tree);
-void insertBtree(Elem e);
-void removeBtree(Elem e);
+void insertBtree(Elem e , BTree * tree);
+void removeBtree(Elem e , BTree * tree);
 // 因插入而上溢的分裂处理
-void solveOverflow(BTNode * btNode);
+void solveOverflow(BTNode * btNode,BTree * tree);
 // 因删除而下溢的合并处理
-void solveUnderflow(BTNode * btNode);
+void solveUnderflow(BTNode * btNode,BTree * tree);
 //在有序向量的区间[lo, hi)内，确定不大于e的最后一个节点的秩
 int searchInChild(Elem e , Vector * keys);
 // 二分查找 在有序向量的区间[lo, hi)内，确定不大于e的最后一个节点的秩

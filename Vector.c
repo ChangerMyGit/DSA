@@ -254,3 +254,9 @@ Elem getElem(Vector * vec ,int i){
 	Elem e = vec->elem[i];
 	return e;
 }
+
+void setAllValue(Vector * vec , Elem e, int size){
+   int i;
+   for(i = 0;i<size;i++)
+	   vec->elem[i] = e;
+}

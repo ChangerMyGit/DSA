@@ -60,5 +60,5 @@ int bubble2(Vector * vec,int lo,int hi);
 void merge(Vector * vec,int lo , int hi);
 void mergeSort(Vector * vec,int lo ,int mi, int hi);
 void printVector(Vector * vec);
-
+void setAllValue(Vector * vec , Elem e, int size);
 #endif

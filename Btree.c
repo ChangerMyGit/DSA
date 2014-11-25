@@ -85,9 +85,6 @@ void solveOverflow(BTNode * btNode,BTree * tree){
 	}
 	deleteRange(btNode->keys,s,tree->_order -1);
 	deleteRange(btNode->child,s+1,tree->_order);
-	//printVector(btNode->keys);
-	//printf("\n");
-	//printVector(u->keys);
 	//若u的孩子们非空，则
 	for(i = 0;i<u->child->size;i++){
 		temp = (BTNode *)getElem(u->child,i);
@@ -103,6 +100,11 @@ void solveOverflow(BTNode * btNode,BTree * tree){
 	   btNode->parent = p;
 	   insert(p->child,btNode);
 	   insert(p->child,u);
+	} else {
+		i = searchInChild(shangyi,p->keys);
+		insert2(p->keys,shangyi,i);
+		insert2(p->child,u,i+1);
+		u->parent = p;
 	}
 }
 

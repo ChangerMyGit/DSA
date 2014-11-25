@@ -59,9 +59,11 @@ int binSearchInChild(Vector * keys,int lo , int hi,int key){
 
 void solveOverflow(BTNode * btNode,BTree * tree){
 	BTNode * u;
-	if (tree->_order >= btNode->child->size) return; //递归基：当前节点并未上溢
+	int s;
+	if (tree->_order >= btNode->child->size) 
+		return; //递归基：当前节点并未上溢
 	//轴点（此时应有_order = key.size() = child.size() - 1）
-	int s = tree->_order / 2;
+	s = tree->_order/2;
 	//u = newBTNode(NULL,);
 }
 
@@ -84,5 +86,5 @@ void insertBtree(Elem e , BTree * tree){
 	insert2(hot->keys,e,r+1); //将新关键码插至对应的位置
 	insert2(hot->child,NULL,r+2);
 	tree->size++;//更新全树规模
-	solveOverflow(hot); //如有必要，需做分裂
+	solveOverflow(hot,tree); //如有必要，需做分裂
 }

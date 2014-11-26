@@ -33,4 +33,6 @@ void solveUnderflow(BTNode * btNode,BTree * tree);
 int searchInChild(Elem e , Vector * keys);
 // 二分查找 在有序向量的区间[lo, hi)内，确定不大于e的最后一个节点的秩
 int binSearchInChild(Vector * keys,int lo , int hi,int key);
+// 获取B树高度
+int geiBTreeHigh(BTree * tree);
 #endif

@@ -102,10 +102,11 @@ void solveOverflow(BTNode * btNode,BTree * tree){
 	   insert(p->child,u);
 	} else {
 		i = searchInChild(shangyi,p->keys);
-		insert2(p->keys,shangyi,i);
-		insert2(p->child,u,i+1);
+		insert2(p->keys,shangyi,i+1);
+		insert2(p->child,u,i+2);
 		u->parent = p;
 	}
+	solveOverflow(p,tree);
 }
 
 void insertBtree(Elem e , BTree * tree){

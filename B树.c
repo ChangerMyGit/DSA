@@ -6,11 +6,13 @@ int main(){
 	int i;
 	int a[] = {202,100,60,300,50};
 	BTNode * node = NULL;
-	BTree * tree = initBtree(5);
-	for(i = 0;i< 40;i++){
+	BTree * tree = initBtree(50);
+	for(i = 0;i< 400;i++){
 	    insertBtree(i,tree);
 	}
 	//printVector(tree->root->keys);
-	node = searchBtree(3,tree);
+	node = searchBtree(16,tree);
+	if(node)
+		printVector(node->keys);
 	return 0;
 }

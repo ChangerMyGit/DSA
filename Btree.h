@@ -2,6 +2,7 @@
 #define _BTREE_H
 
 #include "Vector.h"
+#include "Queue.h"
 
 typedef struct _btreeNode{
 	struct _btreeNode * parent ; //父节点
@@ -35,4 +36,6 @@ int searchInChild(Elem e , Vector * keys);
 int binSearchInChild(Vector * keys,int lo , int hi,int key);
 // 获取B树高度
 int geiBTreeHigh(BTree * tree);
+// 打印B树
+void printBTree(BTree * tree);
 #endif

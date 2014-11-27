@@ -199,11 +199,11 @@ void solveUnderflow(BTNode * btNode,BTree * tree){
 	} //至此，左兄弟要么为空，要么太“瘦”
 	// 情况2：向右兄弟借关键码
 	if (p->child->size - 1 > r) { //若v不是p的最后一个孩子，则
-		rs = p->child->elem[r+1];//左兄弟必存在
+		rs = p->child->elem[r+1];//右兄弟必存在
 		if ((tree->_order + 1) / 2 < rs->child->size) { //若该兄弟足够“胖”，则
 			//p借出一个关键码给btNode（作为最大关键码）
 			insert2(btNode->keys ,p->keys->elem[r] ,btNode->keys->size); 
-		    //rs的最小关键码转入p
+			//rs的最小关键码转入p
 			p->keys->elem[r] = rs->keys->elem[0];
 			//rs的最左侧孩子给btNode
 			insert2(btNode->child ,rs->child->elem[0] ,btNode->child->size);
@@ -218,8 +218,48 @@ void solveUnderflow(BTNode * btNode,BTree * tree){
 	}//至此，右兄弟要么为空，要么太“瘦”
 	// 情况3：左、右兄弟要么为空（但不可能同时），要么都太“瘦”——合并
 	if (0 < r) { //与左兄弟合并
-		
+		ls = p->child->elem[r-1];//左兄弟必存在
+		//p的第r - 1个关键码转入ls，btNode不再是p的第r个孩子
+		insert(ls->keys,p->keys->elem[r-1]);
+		deleteSingle(p->keys,r-1);
+		deleteSingle(p->child,r);
+		// ls 与 btNode合并
+		// v的最左侧孩子过继给ls做最右侧孩子 孩子比关键节点多一个 所以先合并一个孩子
+		insert(ls->child,btNode->child->elem[0]);
+		if(ls->child->elem[ls->child->size-1])
+			((BTNode *)ls->child->elem[ls->child->size-1])->parent = ls;
+		deleteSingle(btNode->child,0); // 删除第一个孩子
+		while(btNode->keys->size){ // btNode剩余的关键码和孩子，依次转入ls
+			insert(ls->keys,btNode->keys->elem[0]);
+			deleteSingle(btNode->keys,0);			
+			insert(ls->child,btNode->child->elem[0]);
+			deleteSingle(btNode->child,0);
+			if(ls->child->elem[ls->child->size-1])
+				((BTNode *)ls->child->elem[ls->child->size-1])->parent = ls;
+		}
+		free(btNode);//释放btNode
+	} else { //与右兄弟合并
+		rs = p->child->elem[r+1];//右兄弟必存在
+		//p的第r个关键码转入rs，btNode不再是p的第r个孩子 放入第一个节点
+		insert2(rs->keys,p->keys->elem[r],0);
+		deleteSingle(p->keys,r);
+		deleteSingle(p->child,r);
+		// rs 与 btNode合并
+		insert2(rs->child,btNode->child->elem[btNode->child->size-1],0);
+		if(rs->child->elem[0])
+			((BTNode *)rs->child->elem[0])->parent = rs;
+		deleteSingle(btNode->child,btNode->child->size-1); // 删除最后一个个孩子
+		while(btNode->keys->size){ // btNode剩余的关键码和孩子，依次转入rs
+			insert2(rs->keys,btNode->keys->elem[btNode->keys->size-1],0);
+			deleteSingle(btNode->keys,btNode->keys->size-1);			
+			insert2(rs->child,btNode->child->elem[btNode->child->size-1],0);
+			deleteSingle(btNode->child,btNode->child->size-1);
+			if(rs->child->elem[0])
+				((BTNode *)rs->child->elem[0])->parent = rs;
+		}
+		free(btNode);//释放btNode
 	}
+	solveUnderflow(p,tree);
 }
 
 int geiBTreeHigh(BTree * tree){
@@ -230,4 +270,21 @@ int geiBTreeHigh(BTree * tree){
 		high++;
 	}
 	return high;
+}
+
+void printBTree(BTree * tree){
+	int i;
+	Queue * qu = initQueue();
+	BTNode * node = tree->root;
+	enqueue(node,qu); // 首节点入队
+	while(!emptyQueue(qu)){
+		node = dequeue(qu);
+		if(node){
+			printVector(node->keys);
+			printf("\n");
+			for(i = 0;i < node->child->size;i++)
+				enqueue(getElem(node->child,i),qu);		
+		}
+	}
+
 }

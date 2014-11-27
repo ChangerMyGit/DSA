@@ -10,11 +10,18 @@ int main(){
 	for(i = 0;i< 400;i++){
 	    insertBtree(i,tree);
 	}
+	for(i = 100;i< 200 ;i++)
+		removeBtree(i,tree);
 	//printVector(tree->root->keys);
 	//printf("\n");
-	//removeBtree(80,tree);
-	printVector(tree->root->keys);
+	//removeBtree(161,tree);
+/*
+	node = searchBtree(163,tree);
+	printVector(node->keys);
 	printf("\n");
 	printf("%d \n" , geiBTreeHigh(tree));
+*/
+	//removeBtree(80,tree);
+	printBTree(tree);
 	return 0;
 }

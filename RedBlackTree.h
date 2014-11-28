@@ -2,7 +2,7 @@
 #define _RBTREE_H
 #include "AVLTree.h"
 
-#define IsBlack(x) ( (x)->color == BLACK || !(x))
+#define IsBlack(x) ( !x || (x)->color == BLACK )
 #define IsRed(x) ((x)->color == RED)
 
 void insertRBTree(ElemType x ,BinTree * tree);

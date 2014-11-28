@@ -3,27 +3,8 @@
 #include <stdio.h>
 
 void insertRBTree(ElemType x ,BinTree * tree){
-	BinNode * node , * parent = NULL;
-	node = tree->root;
-	while(node){
-		parent = node->parent;
-		if(x == node->data)
-			break;
-		else if(x > node->data)
-			node = node->rc;
-		else if(x < node->data)
-			node = node->lc;
-	}
-	if(!node){
-		node = newBinNode(x,parent);
-		tree->size++;
-		if(!tree->root){
-		   tree->root = node;
-		   tree->root->color = BLACK;
-		   return;
-		}	
-		solveDoubleRed(node,tree);
-	}
+	BinNode * node = insertNode(tree,x);	
+	solveDoubleRed(node,tree);
 }
 
 /****************************************************************************

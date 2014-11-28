@@ -7,12 +7,16 @@
 #include "List.h"
 #include "Stack.h"
 #include "Queue.h"
+
+typedef enum { RED,BLACK } Color; 
+
 typedef struct _binNode{
 	ElemType data;
 	struct _binNode * parent;
 	struct _binNode * lc;
 	struct _binNode * rc;
 	int height;
+	Color color;
 } BinNode;
 
 typedef struct _tree {
@@ -37,7 +41,6 @@ typedef struct _tree {
 #define HasChild(x) ( HasLChild(x) || HasRChild(x) ) //至少拥有一个孩子
 #define HasChild(x) ( HasLChild(x) || HasRChild(x) ) //至少拥有一个孩子
 #define IsLeaf(x) ( ! HasChild(x) )
-
 /*来自父亲的引用*/
 #define FromParentTo(x , y) ( IsRoot(x) ? y->root : ( IsLChild(x) ? (x)->parent->lc : (x)->parent->rc ) )
 // 在左，右孩子中取更高者 等高 与父亲同侧者

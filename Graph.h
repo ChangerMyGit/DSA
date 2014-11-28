@@ -1,3 +1,5 @@
+#ifndef _GRAPH_H
+#define _GRAPH_H
 #include "Vector.h"
 /**
 使用邻接矩阵表示图
@@ -72,3 +74,4 @@ void Dijkstra(Graph * graph , int v);
 int getMinEdge(Graph * graph , Vector * u , int v , int * dist);
 // 更新权值
 void updateQuan(int * dist , int i , int weight);
+#endif

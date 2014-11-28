@@ -53,6 +53,7 @@ BinNode * newBinNode(ElemType x , BinNode * parent){
 	node->height = 0;
 	node->lc = NULL;
 	node->rc = NULL;
+	node->color = RED;
 	return node;
 }
 

@@ -7,7 +7,7 @@
 int mainAVL(){
 	int i;
 	BinTree * tree = initBinTree();
-	for(i = 1;i<=10;i++)
+	for(i = 4;i<=6;i++)
 		insertNodeAVL(i , tree);
 	if(tree->size!=0){
 		printf("根节点：%d \n" , root(tree)->data);
@@ -15,6 +15,7 @@ int mainAVL(){
 		printf("\n中序遍历---------------\n");
 		travIn_R(root(tree));	    
 	}
+/*
 	for(i = 1 ;i < 7 ; i++)
 		deleteNodeAVL(tree , (ElemType)i);
 	if(tree->size!=0){
@@ -23,5 +24,6 @@ int mainAVL(){
 		printf("\n中序遍历---------------\n");
 		travIn_R(root(tree));
 	}
+*/
 	return 0;
 }

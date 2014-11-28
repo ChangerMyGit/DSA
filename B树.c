@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main(){
+int mainBree(){
 	int i;
 	int a[] = {202,100,60,300,50};
 	BTNode * node = NULL;

@@ -301,9 +301,10 @@ BinNode * getMin(BinNode * binNode){
 	return binNode;
 }
 
-void deleteNode(BinNode * node, BinTree * binTree){
+BinNode * deleteNode(BinNode * node, BinTree * binTree){
 	ElemType e;
 	BinNode * child , * parent = node->parent;
+	binTree->_hot = parent;
 	// 存在一个节点
 	if((node->lc && !node->rc) || (!node->lc && node->rc)){
 		child = (node->lc) ? node->lc : node->rc;
@@ -316,6 +317,7 @@ void deleteNode(BinNode * node, BinTree * binTree){
 		} else
 			binTree->root = child;
 		free(node);
+		return child;
 	}
 	// 叶子节点
 	else if(!node->lc && !node->rc){
@@ -328,6 +330,7 @@ void deleteNode(BinNode * node, BinTree * binTree){
 		else 
 			binTree->root = NULL;
 		free(node);
+		return NULL;
 	} 
 	else if(node->lc && node->rc){
 		// 找到删除元素的最小后继
@@ -337,6 +340,7 @@ void deleteNode(BinNode * node, BinTree * binTree){
 		child->data = node->data;
 		node->data = e;
 		deleteNode(child,binTree);
+		return node;
 	}
 }
 

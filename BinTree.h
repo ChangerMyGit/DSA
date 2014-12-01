@@ -22,6 +22,7 @@ typedef struct _binNode{
 typedef struct _tree {
 	int size;
 	BinNode * root;
+	BinNode * _hot;
 } BinTree;
 
 // 返回节点高度 空树为-1
@@ -104,7 +105,7 @@ BinNode * getMax(BinNode * binNode);
 BinNode * getMin(BinNode * binNode);
 // 删除节点
 void deleteBinNode(BinTree * binTree , ElemType x);
-void deleteNode(BinNode * node , BinTree * binTree);
+BinNode * deleteNode(BinNode * node , BinTree * binTree);
 /**
   AVL 平衡二叉树的插入删除
   插入操作O（1）的复杂度 删除操作最坏可能是O（logn）的复杂度

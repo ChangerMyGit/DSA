@@ -5,7 +5,7 @@
 int main(){
 	int i;
 	BinTree * tree = initBinTree();
-	for(i = 4;i <= 5;i++)
+	for(i = 1;i <= 8;i++)
 		insertRBTree(i , tree);
 	if(tree->size!=0){
 		printf("¸ù½Úµã£º%d \n" , root(tree)->data);

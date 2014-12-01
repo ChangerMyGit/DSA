@@ -71,6 +71,18 @@ BinNode * insertAsRC(ElemType e , BinNode * binNode){
 	return newNode;
 }
 
+BinNode * insertAsLCC(BinNode * parent , BinNode * binNode){
+	parent->lc = binNode;
+	updateHeightAbove(parent);
+	return binNode;
+}
+
+BinNode * insertAsRCC(BinNode * parent , BinNode * binNode){
+	parent->rc = binNode;
+	updateHeightAbove(parent);
+	return binNode;
+}
+
 BinNode * root(BinTree * binTree){
 	return binTree->root;
 }
@@ -148,8 +160,8 @@ void travPre_I2(BinNode * binNode){
 void travIn_R(BinNode * binNode){
 	if(!binNode) return;
 	travIn_R(binNode->lc);
-	printf("Left : %d  Center : %d  Right : %d \n",binNode->lc ? binNode->lc->data :
-		0 , binNode->data , binNode->rc ? binNode->rc->data : 0);
+	printf("Left : %d  Center : %d  Right : %d  Color : %s \n",binNode->lc ? binNode->lc->data :
+		0 , binNode->data , binNode->rc ? binNode->rc->data : 0 , binNode->color == RED ? "ºìÉ«" : "ºÚÉ«");
 	travIn_R(binNode->rc);
 }
 
@@ -266,9 +278,11 @@ BinNode * insertNode(BinTree * binTree , ElemType x){
 	if(binNode == NULL){
 		newNode = newBinNode(x,parent);
 		if(parent->data > x)
-			insertAsLC(x,parent);
+			//insertAsLC(x,parent);
+			insertAsLCC(parent,newNode);
 		else if(parent->data < x)
-			insertAsRC(x,parent);
+			//insertAsRC(x,parent);
+			insertAsRCC(parent,newNode);
 		binTree->size++;
 	}
 	return newNode;

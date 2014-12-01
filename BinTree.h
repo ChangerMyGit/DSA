@@ -56,6 +56,10 @@ BinNode * insertAsRoot(BinTree * binTree , ElemType x);
 BinNode * insertAsLC(ElemType e , BinNode * binNode);
 //e作为x的右孩子（原无）插入
 BinNode * insertAsRC(ElemType e , BinNode * binNode);
+//binNode作为parent的左孩子（原无）插入
+BinNode * insertAsLCC(BinNode * parent , BinNode * binNode);
+//binNode作为parent的右孩子（原无）插入
+BinNode * insertAsRCC(BinNode * parent , BinNode * binNode);
 // 获得根节点
 BinNode * root(BinTree * binTree);
 // 获得某一个数的规模 所有的元素数目

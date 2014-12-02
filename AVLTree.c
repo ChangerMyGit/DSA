@@ -10,6 +10,7 @@ void deleteNodeAVL(BinTree * binTree , ElemType x){
 	if(node){
 		g = node->parent;
 		deleteNode(node,binTree);
+		binTree->size--;
 		// 删除后可能导致失衡
 		for(;g;g = g->parent){
 			if(!AvlBanlance(g)){

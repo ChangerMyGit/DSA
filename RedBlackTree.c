@@ -95,13 +95,12 @@ void removeRBTree(ElemType x ,BinTree * tree){
 *    BB-3 ：2次颜色翻转，2次黑高度更新，1次旋转，转为BB-1或BB2R
 **************************************************************************/
 void solveDoubleBlack(BinNode * r ,BinTree * tree){
-	BinNode * p = r ? r->parent : tree->_hot;
-	BinNode * s = (r == p->lc) ? p->rc : p->lc; //r的兄弟
-	BinNode * t = NULL , * b ,* gg;
+	BinNode * t = NULL , * b ,* gg , * s;
 	Color oldColor ;// 旧的颜色
+	BinNode * p = r ? r->parent : tree->_hot;
 	if(!p) 
 		return;
-	gg = p->parent;
+	s = (r == p->lc) ? p->rc : p->lc; //r的兄弟
 	if(!s) return;
 	if(IsBlack(s)) { //兄弟s为黑
 		//s的红孩子（若左、右孩子皆红，左者优先；皆黑时为NULL）
@@ -113,7 +112,8 @@ void solveDoubleBlack(BinNode * r ,BinTree * tree){
 			oldColor = p->color;//备份原子树根节点p颜色，并对t及其父亲、祖父
 			//重平衡，并将新子树的左、右孩子染黑
 			b = rotateAt(t);
-			if(!IsRoot(p)){
+			gg = b->parent;
+			if(!IsRoot(b)){
 				if(gg->lc == p){
 					gg->lc = b;
 					p = gg->lc;

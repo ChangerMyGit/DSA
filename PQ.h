@@ -18,10 +18,12 @@ PQ_ComplHeap * initPQ(int size);
 
 // 按照比较器确定的优先级次序插入词条
 void insertPQ(Elem e , PQ_ComplHeap * pq);
+void insertPQ2(Elem e , PQ_ComplHeap * pq);
 // 取出优先级最高的词条
 Elem getMax(PQ_ComplHeap * pq);
 // 删除优先级最高的词条
 Elem delMax(PQ_ComplHeap * pq);
 // 上溢
 void percolateUp(int n , PQ_ComplHeap * pq);
+void percolateUp2(int n , PQ_ComplHeap * pq);
 #endif

@@ -21,6 +21,12 @@ void insertPQ(Elem e , PQ_ComplHeap * pq){
 	percolateUp(n,pq);
 }
 
+void insertPQ2(Elem e , PQ_ComplHeap * pq){
+	int n;
+	insert(pq->vector,e);
+	n = pq->vector->size -1;
+	percolateUp2(n,pq);
+}
 void percolateUp(int n , PQ_ComplHeap * pq){
 	while(ParentValid(n)){
 		// 大于父元素
@@ -34,13 +40,14 @@ void percolateUp(int n , PQ_ComplHeap * pq){
 }
 
 void percolateUp2(int n , PQ_ComplHeap * pq){
-	int p ;
+	Elem e = getElem(pq->vector,n);
 	while(ParentValid(n)){
 		// 大于父元素
-		if(getElem(pq->vector,n) > getElem(pq->vector,Parent(n))){
-			p = Parent(n);
+		if(e > getElem(pq->vector,Parent(n))){
+			pq->vector->elem[n] = pq->vector->elem[Parent(n)];
+			n = Parent(n);
 		} else 
 			break;
 	}
-	vec_swap(&pq->vector->elem[p],&pq->vector->elem[n]);
+	pq->vector->elem[n] = e;
 }

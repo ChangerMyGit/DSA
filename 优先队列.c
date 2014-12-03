@@ -5,13 +5,15 @@
 int main(){
 	int i;
 	PQ_ComplHeap * pq = initPQ(10 * sizeof(int));
-	PQ_ComplHeap * pq1 = initPQ(10 * sizeof(int));
-	for(i = 0; i < 20 ;i++)
-		insertPQ(i,pq);
-	for(i = 0; i < 20 ;i++)
-		insertPQ(i,pq1);
+	heapify(9,pq);
+/*
+	for(i = pq->size-1 ; i > 0 ; i--)
+		delMax(pq);
+	printVector(pq->vector);
+*/
 	printVector(pq->vector);
 	printf("\n");
-	printVector(pq1->vector);
+	heapSort(pq);
+	printVector(pq->vector);
 	return 0;
 }

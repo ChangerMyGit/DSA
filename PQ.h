@@ -11,6 +11,7 @@
 
 typedef struct _pq{
 	Vector * vector;
+	int size;
 } PQ_ComplHeap; 
 
 
@@ -20,10 +21,18 @@ PQ_ComplHeap * initPQ(int size);
 void insertPQ(Elem e , PQ_ComplHeap * pq);
 void insertPQ2(Elem e , PQ_ComplHeap * pq);
 // 取出优先级最高的词条
-Elem getMax(PQ_ComplHeap * pq);
+Elem getMaxPQ(PQ_ComplHeap * pq);
 // 删除优先级最高的词条
 Elem delMax(PQ_ComplHeap * pq);
 // 上溢
 void percolateUp(int n , PQ_ComplHeap * pq);
 void percolateUp2(int n , PQ_ComplHeap * pq);
+// 下溢
+void percolateDown(int n , PQ_ComplHeap * pq);
+/*父子（至多）三者中的大者*/ 
+int ProperParent(int n , PQ_ComplHeap * pq);
+// 构造优先队列 ① 蛮力法 ② 使用下虑
+void heapify(int n , PQ_ComplHeap * pq);
+// 堆排序
+void heapSort(PQ_ComplHeap * pq);
 #endif

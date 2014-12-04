@@ -17,6 +17,7 @@ typedef struct _binNode{
 	struct _binNode * rc;
 	int height;
 	Color color;
+	int npl; // ¿ÕÂ·¾¶³¤¶È
 } BinNode;
 
 typedef struct _tree {

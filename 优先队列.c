@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main(){
+int mainHeap(){
 	int i;
 	PQ_ComplHeap * pq = initPQ(10 * sizeof(int));
 	LeftHeap * lpq1 = initLeftHeap();
@@ -21,6 +21,7 @@ int main(){
 	printVector(pq->vector);
 	printf("\n");
 */    
+/*
 	insertLeftHeap(17,lpq1);
 	insertAsLC(13,lpq1->root);
 	insertAsRC(12,lpq1->root);
@@ -35,5 +36,12 @@ int main(){
 	lpq3->root = mergeLeftHeap(lpq1->root,lpq2->root);
 	printf("\n root : %d \n" , lpq3->root->data);
 	travIn_R(lpq3->root);	 
+	delMaxLeftHeap(lpq3);
+	printf("\n root : %d \n" , lpq3->root->data);
+	travIn_R(lpq3->root);	 
+*/
+	for(i = 1 ; i < 20 ; i++)
+		insertLeftHeap(i,lpq1);
+	travIn_R(lpq1->root);	 
 	return 0;
 }

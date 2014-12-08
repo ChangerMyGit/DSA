@@ -1,5 +1,6 @@
 #include "MyString.h"
 #include <string.h>
+#include <stdlib.h>
 
 // 蛮力匹配法 时间复杂度 O（N * M）
 int matchString(char * p , char * t){
@@ -31,4 +32,34 @@ int matchString2(char * p , char * t){
 			return i;
 	}	
 	return -1;
+}
+
+int * buildNext(char * p){
+	int j = 0;
+	size_t m = strlen(p);
+	int * n = (int *)malloc(m * sizeof(int));
+	int t = n[0] = -1;
+	while(j < m - 1){
+		if(t < 0 || p[j] == p[t]){
+			n[++j] = ++t;
+		} else {
+			t = n[t];
+		}
+	}
+	return n;
+}
+
+int kmpMatch(char * p , char * t){
+    int i = 0 , j = 0;
+	int * next = buildNext(p);
+	int m = strlen(p);
+	int n = strlen(t);
+	while(i < n && j < m){
+		if( j < 0 || t[i] == p[j]){
+		     i++;j++ ;
+		} else 
+			j = next[j];
+	}
+	free(next);
+	return i - j;
 }

@@ -4,11 +4,12 @@
 #include <string.h>
 
 int main(){
-	char * p = "ChaChanger";
-	char * t = "Hello ChaChanger How are you! Ok ";
-	int * n = buildNext(p);
+	char * p1 = "chine chinchilla";
+	char * p = "ABCDABD";
+	char * t = "BBC ABCDAB ABCDABCDABDE";
+	int * n = buildNext(p1);
 	int i ;
-	for(i = 0; i<strlen(p);i++)
+	for(i = 0; i<strlen(p1);i++)
 		printf(" %d ",n[i]);
 	printf("\n");
 	printf("ÂùÁ¦Æ¥Åä %d \n",matchString(p,t));

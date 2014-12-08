@@ -41,7 +41,9 @@ int * buildNext(char * p){
 	int t = n[0] = -1;
 	while(j < m - 1){
 		if(t < 0 || p[j] == p[t]){
-			n[++j] = ++t;
+			j++;
+			t++;
+			n[j] = (p[j] != p[t])?t:n[t]; // 改进版 对于重复的元素 不再重复比较
 		} else {
 			t = n[t];
 		}

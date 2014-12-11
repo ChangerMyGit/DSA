@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(){
+int mainString(){
 	char * p1 = "chine chinchilla";
 	char * p = "ABCDABD";
 	char * t = "BBC ABCDAB ABCDABCDABDE";

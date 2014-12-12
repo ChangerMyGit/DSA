@@ -5,7 +5,8 @@ void quickSort(int * elem , int lo , int hi);
 int partition(int * elem , int lo , int hi);
 // 三者取中
 int getMiddle(int * elem , int lo , int hi);
-void swap_elem(int * x , int * y);
+// 取轴点变种
+int partition2(int * elem , int lo , int hi);
 int main(){
 	int i;
 	int elem[10] = {6,3,8,2,5,9,4,5,1,7};
@@ -29,7 +30,7 @@ int partition(int * elem , int lo , int hi){
 			hi--;
 		if ( lo < hi ) 
 			elem[lo++] = elem[hi];
-		while(lo < hi && elem[lo] <= pivot) 
+		while(lo < hi && elem[lo] < pivot) 
 			lo++;
 		if ( lo < hi ) 
 			elem[hi--] = elem[lo];
@@ -38,10 +39,29 @@ int partition(int * elem , int lo , int hi){
 	return lo;
 }
 
+/**
+S = [lo] + L(lo,mi] + G(mi,k) + U[k,hi]
+L < pivot <= G
+**/
+int partition2(int * elem , int lo , int hi){
+	int pivot , k;
+	int swap_index = getMiddle(elem,lo,hi); // 三数取中 
+	int mi = lo;
+	swap_t(int ,elem[lo],elem[swap_index]); // 然后和首元素交换
+	pivot = elem[lo];
+	for ( k = lo + 1; k <= hi; k++ ) //自左向右扫描
+		if(elem[k] < pivot){//若当前元素_elem[k]小于pivot，则
+			mi++;
+		    swap_t(int ,elem[mi],elem[k]); // 将_elem[k]交换至原mi之后，使L子序列向右扩展
+		}
+    swap_t(int ,elem[lo], elem[mi] ); //候选轴点归位
+	return mi;
+}
+
 void quickSort(int * elem , int lo , int hi){
 	int mi;
 	if(hi - lo < 2) return;
-	mi = partition(elem,lo,hi-1);
+	mi = partition2(elem,lo,hi-1);
 	quickSort(elem,lo,mi);
 	quickSort(elem,mi+1,hi);
 }
@@ -56,10 +76,4 @@ int getMiddle(int * elem , int lo , int hi){
 		return (lo + hi)/2;
 	else 
 		return hi;
-}
-
-void swap_elem(int * x , int * y){
-	int temp = *x;
-	*x = *y;
-	*y = temp;
 }

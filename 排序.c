@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #define swap_t(t , x, y) {t temp = x; x = y; y = temp;}
 void quickSort(int * elem , int lo , int hi);
 int partition(int * elem , int lo , int hi);
@@ -7,14 +9,20 @@ int partition(int * elem , int lo , int hi);
 int getMiddle(int * elem , int lo , int hi);
 // 取轴点变种
 int partition2(int * elem , int lo , int hi);
+void reverseStr(char * s, int lo , int hi);
+void shellsort(int * elem , int n);
 int main(){
 	int i;
 	int elem[10] = {6,3,8,2,5,9,4,5,1,7};
+	char s[] = "12345678";
 	//int elem[10] = {1,2,3,4,5,6,7,8,9,10};
-	quickSort(elem,0,sizeof(elem)/sizeof(int));
+	//quickSort(elem,0,sizeof(elem)/sizeof(int));
+	shellsort(elem,sizeof(elem)/sizeof(int));
 	for(i = 0; i < sizeof(elem)/sizeof(int) ; i++)
 		printf("%d " , elem[i]);
 	printf("\n");
+	reverseStr(s,0,strlen(s)-1);
+	printf("%s \n",s);
 	return 0;
 }
 
@@ -52,10 +60,10 @@ int partition2(int * elem , int lo , int hi){
 	for ( k = lo + 1; k <= hi; k++ ) //自左向右扫描
 		if(elem[k] < pivot){//若当前元素_elem[k]小于pivot，则
 			mi++;
-		    swap_t(int ,elem[mi],elem[k]); // 将_elem[k]交换至原mi之后，使L子序列向右扩展
+			swap_t(int ,elem[mi],elem[k]); // 将_elem[k]交换至原mi之后，使L子序列向右扩展
 		}
-    swap_t(int ,elem[lo], elem[mi] ); //候选轴点归位
-	return mi;
+		swap_t(int ,elem[lo], elem[mi] ); //候选轴点归位
+		return mi;
 }
 
 void quickSort(int * elem , int lo , int hi){
@@ -76,4 +84,20 @@ int getMiddle(int * elem , int lo , int hi){
 		return (lo + hi)/2;
 	else 
 		return hi;
+}
+
+void reverseStr(char * s, int lo , int hi){
+	if(lo >= hi) return;
+	swap_t(char , s[lo],s[hi]);
+	reverseStr(s,++lo,--hi);
+}
+
+// 希尔排序
+void shellsort(int * elem , int n){
+	int gap , i, j ;
+	for(gap = n/2 ;gap >0 ;gap /=2)
+		for(i = gap ;i < n ;i++)
+			for(j = i-gap;j>=0 && elem[j] > elem[j+gap];j-=gap){
+				swap_t(int , elem[j],elem[j+gap]);
+			}
 }
